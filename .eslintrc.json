@@ -1,0 +1,24 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": "standard",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "html"
+  ],
+  "rules": {
+    "indent": ["error", 2],
+    "quotes": ["warn", "single"],
+    "semi": ["error", "never"],
+    "no-console": "off",
+    "space-before-function-paren": "off",
+    "no-unused-expressions": "off",
+    "eqeqeq": "off"
+  }
+}
