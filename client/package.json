@@ -1,7 +1,7 @@
 {
-  "name": "wx_hello",
+  "name": "hyoka",
   "version": "1.0.0",
-  "description": "",
+  "description": "mp",
   "dependencies": {},
   "devDependencies": {
     "@types/weixin-app": "^1.9.0"

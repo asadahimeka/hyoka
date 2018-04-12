@@ -28,7 +28,6 @@ Page({
     p.then(console.log)
 
     // var url = 'http://v3.wufazhuce.com:8000/api/hp/idlist/0';
-    // var url = 'http://app.youjihotel.cn/index.php?app=hotel&callback=JSON_CALLBACK&act=getProtocol';
     // var url = 'http://localhost:3000/test';
     /*
     wx.request({
