@@ -4,6 +4,7 @@ const cors = require('koa2-cors')
 const koaBody = require('koa-body')
 // const bodyParser = require('koa-bodyparser');
 const knex = require('knex')
+const fs = require('fs')
 
 const app = new Koa()
 const mysql = knex({
@@ -12,7 +13,7 @@ const mysql = knex({
     host: 'localhost',
     user: 'root',
     password: 'root',
-    database: 'test'
+    database: 'hyoka'
   },
   debug: true, // 指明是否开启debug模式，默认为true表示开启
   pool: { // 指明数据库连接池的大小，默认为{min: 2, max: 10}
@@ -27,24 +28,47 @@ const mysql = knex({
 
 const hasTable = tableName => mysql.schema.hasTable(tableName)
 
-const getCodeById = id => mysql.select().table('xy_authcode').where('a_tid', id)
+const getCodeById = async (id) => {
+  let has = await hasTable('test')
+  if (has) {
+    return mysql.select().table('test').where('id', id)
+  }
+}
 
 const logger = (ctx, next) => {
-  console.log(`${new Date().toLocaleString()} ${ctx.request.method} ${ctx.request.url}`)
+  let log = `${new Date().toLocaleString()} ${ctx.request.method} ${ctx.request.url}\n`
+  // fs.appendFile('./history.log', log, function (err) {
+  //   if (err) throw err
+  // })
+  console.log(log)
   return next()
 }
 
 const test = async (ctx, next) => {
+  let id = ctx.query.id
   let res = {}
   try {
-    res.data = await getCodeById(1)
-    res.status = 1
-    res.msg = 'SUCCESS'
+    if (id) {
+      let ret = await getCodeById(id)
+      if (ret.length) {
+        res.data = ret
+        res.status = 1
+        res.msg = 'SUCCESS'
+      } else {
+        res.data = ret
+        res.status = 0
+        res.msg = 'FAIL: NO DATA'
+      }
+    } else {
+      res.data = []
+      res.status = 0
+      res.msg = 'FAIL: NO ID'
+    }
   } catch (error) {
     console.log('error: ', error)
     res.data = []
     res.status = 0
-    res.msg = 'FAIL'
+    res.msg = 'FAIL: unknown error'
   }
   ctx.response.body = res
 }
@@ -52,7 +76,11 @@ const test = async (ctx, next) => {
 const main = ctx => {
   ctx.set('Cache-Control', 'no-cache, must-revalidate')
   let cb = ctx.query['callback']
-  ctx.body = cb ? cb + '(' + '"helloworld"' + ')' : 'HelloWorld'
+  let o = {
+    res: 'hello'
+  }
+  let res = JSON.stringify(o)
+  ctx.body = cb ? cb + '(' + res + ')' : res
 }
 
 app.use(cors())
@@ -60,7 +88,7 @@ app.use(logger)
 app.use(koaBody())
 // app.use(bodyParser());
 
-app.use(route.get('/', main))
+app.use(route.post('/', main))
 app.use(route.get('/test', test))
 
 app.listen(3000, () => console.log('listen on 3000'))

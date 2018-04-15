@@ -15,11 +15,29 @@ Page({
     })
   },
   onLoad: function () {
-    // wx.showToast({
-    //   title: '加载中',
-    //   icon: 'loading'
-    // })
-
+    wx.loading = function (s) {
+      if (s === 'close') {
+        if (wx.hideLoading) {
+          wx.hideLoading()
+        } else {
+          wx.hideToast()
+        }
+      } else {
+        if (wx.showLoading) {
+          wx.showLoading({
+            title: ''
+          })
+        } else {
+          wx.showToast({
+            title: '加载中',
+            icon: 'loading',
+            duration: 0
+          })
+        }
+      }
+    }
+    // wx.showLoading()
+    wx.loading()
     let p = new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(123)
@@ -27,9 +45,7 @@ Page({
     })
     p.then(console.log)
 
-    // var url = 'http://v3.wufazhuce.com:8000/api/hp/idlist/0';
-    // var url = 'http://localhost:3000/test';
-    /*
+    let url = 'http://localhost:3000/test?id=1'
     wx.request({
       url: url,
       // data: {},
@@ -37,26 +53,30 @@ Page({
       //   'Content-Type': 'application/json'
       // },
       method: 'GET',
-      success: res=>{
-        console.log(res.data);
-        // var ret = res.data;
-        // var si = ret.indexOf('(');
-        // var ei = ret.indexOf(')');
-        // var wish = JSON.parse(ret.slice(si+1,ei));
-        // console.log(wish);
-        // this.setData({
-        //   motto:wish.retval.data.article_id
-        // })
-        // wx.hideToast();
-        // wx.showToast({
-        //   title: '成功',
-        //   icon: 'success',
-        //   duration: 3000,
-        //   mask: true
-        // })
+      success: res => {
+        // 只要成功接收到服务器返回，无论statusCode是多少，都会进入success回调。请开发者根据业务逻辑对返回值进行判断。
+        console.log('Res:', res)
+        var ret = res.data.data[0]
+        this.setData({
+          motto: ret.name
+        })
+        wx.hideLoading()
+        wx.showToast({
+          title: '成功',
+          icon: 'success',
+          duration: 3000,
+          mask: true
+        })
+      },
+      fail: err => {
+        console.log('Error:', err)
+        // wx.hideLoading();
+        wx.loading('close')
+        this.setData({
+          motto: 'error'
+        })
       }
     })
-    */
 
     if (app.globalData.userInfo) {
       this.setData({
