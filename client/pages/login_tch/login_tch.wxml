@@ -1,0 +1,16 @@
+<view class="container login">
+  <view class="login-text login-top">
+    <text>评教系统(教师入口)</text>
+  </view>
+  <view class="login-panel">
+    <view class="avatar">
+      <image class="avatar-img" src="../../assets/img/avatar.png"></image>
+    </view>
+    <input class="login-input" placeholder="用户名" bindinput="unameInput" bindblur="" />
+    <input class="login-input" password placeholder="密码" bindinput="pwdInput" bindblur="" />
+    <button class="login-btn" loading="{{false}}" hover-class="button-hover">登录</button>
+  </view>
+  <view bind:tap="selRole" class="login-text login-bottom">
+    <text>不是教师?点击进入其他登录入口</text>
+  </view>
+</view>

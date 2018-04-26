@@ -1,12 +1,20 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/login_stu/login_stu",
+    "pages/login_tch/login_tch",
+    "pages/webview/webview",
+    "pages/userinfo/userinfo",
+    "pages/vieweva/vieweva",
+    "pages/evalist/evalist",
+    "pages/evadtl/evadtl",
+    "pages/courses/courses"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
-  }
+    "navigationBarTextStyle": "black"
+  },
+  "debug": true
 }
