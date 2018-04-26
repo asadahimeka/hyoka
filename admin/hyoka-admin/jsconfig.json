@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*",
+    "bower_components",
+    "jspm_packages",
+    "tmp",
+    "temp",
+    "dist"
+  ]
+}
