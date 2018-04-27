@@ -1,66 +1,50 @@
 // pages/userinfo/userinfo.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-  
+    bgClass: 'bgimg',
+    isBlur: 0,
+    isBlack: 0
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+  onLoad(options) {
+    let isBlur = wx.getStorageSync('isBlur') || 0
+    let isBlack = wx.getStorageSync('isBlack') || 0
+    this.setData({
+      isBlur: +isBlur,
+      isBlack: +isBlack,
+      bgClass: +isBlur ? 'bgimg blur' : 'bgimg',
+      textColor: +isBlack ? '#000' : '#fff'
+    })
   },
+  onShow() {
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
+  switch1Change(e) {
+    if (e.detail.value) {
+      this.setData({
+        bgClass: 'bgimg blur'
+      })
+      wx.setStorageSync('isBlur', '1')
+    } else {
+      this.setData({
+        bgClass: 'bgimg'
+      })
+      wx.setStorageSync('isBlur', '0')
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
+  switch2Change(e) {
+    if (e.detail.value) {
+      this.setData({
+        textColor: '#000'
+      })
+      wx.setStorageSync('isBlack', '1')
+    } else {
+      this.setData({
+        textColor: '#fff'
+      })
+      wx.setStorageSync('isBlack', '0')
+    }
   },
+  onShareAppMessage() {
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
   }
 })

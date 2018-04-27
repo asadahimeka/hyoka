@@ -8,13 +8,16 @@
     "pages/vieweva/vieweva",
     "pages/evalist/evalist",
     "pages/evadtl/evadtl",
-    "pages/courses/courses"
+    "pages/courses/courses",
+    "pages/setname/setname",
+    "pages/setpwd/setpwd",
+    "pages/msg_suc/suc",
+    "pages/msg_fail/fail"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "评教系统",
     "navigationBarTextStyle": "black"
-  },
-  "debug": true
+  }
 }

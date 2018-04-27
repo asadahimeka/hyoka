@@ -1,1 +1,19 @@
 /* pages/evalist/evalist.wxss */
+
+.evalist {
+  background: #f8f8f8;
+}
+
+.cno,
+.tno {
+  margin-right: 40rpx;
+}
+
+.no-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  font-size: 40rpx;
+  color: #999;
+}

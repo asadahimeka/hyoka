@@ -1,2 +1,24 @@
-<!--pages/evalist/evalist.wxml-->
-<text>pages/evalist/evalist.wxml</text>
+<!-- pages/evalist/evalist.wxml -->
+<view class="container evalist">
+  <view class="weui-panel">
+    <view class="weui-panel__hd">未评价课程</view>
+  </view>
+  <block wx:if="{{1}}">
+    <view class="weui-cells__title">
+      <text class="tno">T001</text>
+      <text>刘学杰</text>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+      <navigator url="../evadtl/evadtl" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          <text class="cno">C001</text>
+          <text>形式与政策</text>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">评价</view>
+      </navigator>
+    </view>
+  </block>
+  <view wx:if="{{0}}" class="no-data">
+    <text>课程已全部评价完</text>
+  </view>
+</view>

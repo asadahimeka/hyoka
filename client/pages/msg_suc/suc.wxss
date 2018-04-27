@@ -1,0 +1,8 @@
+/* pages/msg_suc/suc.wxss */
+
+.pri-btn{
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.d-btn{
+  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}

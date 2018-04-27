@@ -1,2 +1,60 @@
-<!--pages/evadtl/evadtl.wxml-->
-<text>pages/evadtl/evadtl.wxml</text>
+<!-- pages/evadtl/evadtl.wxml -->
+<view class="container evadtl">
+  <view class="weui-panel">
+    <view class="weui-panel__hd">评价信息</view>
+    <view class="weui-panel__bd">
+      <view class="weui-media-box weui-media-box_text">
+        <view class="weui-media-box__title weui-media-box__title_in-text">
+          <text decode>C001&nbsp;</text>
+          <text>形式与政策</text>
+        </view>
+        <view class="weui-media-box__desc">
+          <text decode>刘学杰&nbsp;-&nbsp;</text>
+          <text>马克思主义学院</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells__title">评价项</view>
+  <view class="weui-cells weui-cells_after-title cells">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <text>1.标题文字标题文字标题文字标题文字标题文字标题文字</text>
+      </view>
+    </view>
+    <radio-group bindchange="radioChange">
+      <label class="weui-check__label label">
+        <radio color="#7E57C2" />
+        <text class="weui-cell__bd">1</text>
+      </label>
+      <label class="weui-check__label label">
+        <radio color="#7E57C2" />
+        <text class="weui-cell__bd">2</text>
+      </label>
+      <label class="weui-check__label label">
+        <radio color="#7E57C2" />
+        <text class="weui-cell__bd">3</text>
+      </label>
+      <label class="weui-check__label label">
+        <radio color="#7E57C2" />
+        <text class="weui-cell__bd">4</text>
+      </label>
+      <label class="weui-check__label label">
+        <radio color="#7E57C2" />
+        <text class="weui-cell__bd">5</text>
+      </label>
+    </radio-group>
+  </view>
+  <view class="weui-cells__title">提点建议</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <textarea class="weui-textarea" placeholder="请输入建议" style="height: 3.3em" />
+        <view class="weui-textarea-counter">0/200</view>
+      </view>
+    </view>
+  </view>
+  <view class="weui-btn-area">
+    <button class="weui-btn setpwd-btn" type="primary" bindtap="showTopTips">提交</button>
+  </view>
+</view>

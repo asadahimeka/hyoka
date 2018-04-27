@@ -1,2 +1,49 @@
-<!--pages/courses/courses.wxml-->
-<text>pages/courses/courses.wxml</text>
+<!-- pages/courses/courses.wxml -->
+<view class="container courses">
+  <view class="weui-panel">
+    <view class="weui-panel__hd">本学期课程</view>
+  </view>
+  <view class="weui-panel">
+    <view class="weui-panel__bd citem">
+      <view class="weui-media-box weui-media-box_text">
+        <view class="weui-media-box__title weui-media-box__title_in-text">
+          <text class="cno">C001</text>
+          <text>形式与政策</text>
+        </view>
+        <view class="weui-media-box__desc">
+          <text class="tch-name">刘学杰</text>
+          <text class="tch-dprt">马克思主义学院</text>
+        </view>
+        <view class="weui-media-box__info">
+          <view class="weui-media-box__info__meta">教师号</view>
+          <view class="weui-media-box__info__meta">T0001</view>
+          <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+            <text class="not-eva">未评估</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="weui-panel">
+    <view class="weui-panel__bd citem">
+      <view class="weui-media-box weui-media-box_text">
+        <view class="weui-media-box__title weui-media-box__title_in-text">
+          <text class="cno">C001</text>
+          <text>形式与政策</text>
+        </view>
+        <view class="weui-media-box__desc">
+          <text class="tch-name">刘学杰</text>
+          <text class="tch-dprt">马克思主义学院</text>
+        </view>
+        <view class="weui-media-box__info">
+          <view class="weui-media-box__info__meta">教师号</view>
+          <view class="weui-media-box__info__meta">T0001</view>
+          <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+            <text class="eva">已评估</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="bottom"></view>
+</view>

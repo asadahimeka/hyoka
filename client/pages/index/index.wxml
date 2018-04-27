@@ -1,11 +1,37 @@
 <!-- index.wxml -->
-<view class="container">
-  <text>Test</text>
-  <navigator style="text-align:center;" url="../login_stu/login_stu?fuck=1" hover-class="none">
-    <button type="primary" loading="{{false}}" hover-class="button-hover">STU</button>
+<view class="container index">
+  <view class="welcome">
+    <image class="hi" src="../../assets/img/hi.png"></image>
+    <view>Welcome，{{username}}</view>
+  </view>
+  <navigator wx:if="{{1}}" url="../courses/courses" hover-class="none">
+    <view class="navitem nav-bg1" hover-class="nav-hover" hover-stay-time="200">
+      <image src="../../assets/img/courses.png" class="icon"></image>
+      <text>课程列表</text>
+    </view>
   </navigator>
-  <navigator url="../login_tch/login_tch" hover-class="navigator-hover">TCH</navigator>
-  <navigator url="../webview/webview?url=https://www.baidu.com" hover-class="navigator-hover">
-    WEBVIEW
+  <navigator wx:if="{{1}}" url="../evalist/evalist" hover-class="none">
+    <view class="navitem nav-bg2" hover-class="nav-hover" hover-stay-time="200">
+      <image src="../../assets/img/eva.png" class="icon"></image>
+      <text>评教</text>
+    </view>
+  </navigator>
+  <navigator wx:if="{{1}}" url="../userinfo/userinfo" hover-class="none">
+    <view class="navitem nav-bg3" hover-class="nav-hover" hover-stay-time="200">
+      <image src="../../assets/img/userinfo.png" class="icon"></image>
+      <text>个人信息</text>
+    </view>
+  </navigator>
+  <navigator wx:if="{{0}}" url="../vieweva/vieweva" hover-class="none">
+    <view class="navitem nav-bg4" hover-class="nav-hover" hover-stay-time="200">
+      <image src="../../assets/img/vieweva.png" class="icon"></image>
+      <text>查看评教信息</text>
+    </view>
+  </navigator>
+  <navigator wx:if="{{0}}" url="../userinfo/userinfo" hover-class="none">
+    <view class="navitem nav-bg5" hover-class="nav-hover" hover-stay-time="200">
+      <image src="../../assets/img/userinfo.png" class="icon"></image>
+      <text>个人信息</text>
+    </view>
   </navigator>
 </view>

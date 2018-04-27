@@ -1,1 +1,22 @@
 /* pages/courses/courses.wxss */
+
+.courses {
+  background: #f8f8f8;
+}
+
+.cno,
+.tch-name {
+  margin-right: 40rpx;
+}
+
+.not-eva {
+  color: rgb(202, 44, 44);
+}
+
+.eva {
+  color: rgb(37, 231, 157);
+}
+
+.bottom {
+  padding-bottom: 80rpx;
+}

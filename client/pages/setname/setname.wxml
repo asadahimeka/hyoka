@@ -1,0 +1,30 @@
+<!-- pages/setname/setname.wxml -->
+<view class="container setname">
+  <view class="weui-toptips weui-toptips_warn" wx:if="{{true}}">错误提示</view>
+  <view class="weui-cells__title">修改用户名</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">用户名</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="请输入新的用户名" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input weui-cell_vcode">
+      <view class="weui-cell__hd">
+        <view class="weui-label">验证码</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="请输入验证码" />
+      </view>
+      <view class="weui-cell__ft">
+        <image class="weui-vcode-img" src="../images/vcode.jpg" style="width: 108px"></image>
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells__tips">底部说明文字底部说明文字</view>
+  <view class="weui-btn-area">
+    <button class="weui-btn setname-btn" type="primary" bindtap="showTopTips">确定</button>
+  </view>
+</view>

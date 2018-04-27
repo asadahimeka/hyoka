@@ -24,16 +24,14 @@ Page({
       itemList: ['教师', '管理员'],
       itemColor: '#101010',
       success(res) {
-        if (!res.cancel) {
-          if (res.tapIndex === 0) {
-            wx.navigateTo({
-              url: '../login_tch/login_tch'
-            })
-          } else if (res.tapIndex === 1) {
-            wx.navigateTo({
-              url: '../webview/webview?url=https://www.baidu.com'
-            })
-          }
+        if (res.tapIndex === 0) {
+          wx.navigateTo({
+            url: '../login_tch/login_tch'
+          })
+        } else if (res.tapIndex === 1) {
+          wx.navigateTo({
+            url: '../webview/webview?url=https://www.baidu.com'
+          })
         }
       }
     })

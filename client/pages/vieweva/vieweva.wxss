@@ -1,1 +1,26 @@
 /* pages/vieweva/vieweva.wxss */
+
+.vieweva {
+  background: #f8f8f8;
+}
+
+.score {
+  font-size: 35rpx;
+  color: #111;
+}
+.weui-panel{
+  margin-top: 0;
+}
+.weui-cell__ft {
+  max-width: 70%;
+}
+
+.bottom {
+  padding-bottom: 80rpx;
+}
+
+.evaitem{
+  overflow: visible;
+  word-wrap: break-word;
+  white-space: inherit;
+}

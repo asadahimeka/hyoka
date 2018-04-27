@@ -2,11 +2,11 @@
 
 Page({
   data: {
-
+    username: 'Asdf'
   },
   onLoad(options) {
     wx.navigateTo({
-      url: '../login_stu/login_stu'
+      url: '../vieweva/vieweva'
     })
   },
   onShow() {

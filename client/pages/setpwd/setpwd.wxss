@@ -1,0 +1,8 @@
+/* pages/setpwd/setpwd.wxss */
+.setpwd{
+  background: #f8f8f8;
+}
+
+.setpwd-btn{
+  background-image: linear-gradient(to right, #92fe9d 0%, #00c9ff 100%);
+}

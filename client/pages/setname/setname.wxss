@@ -1,0 +1,9 @@
+/* pages/setname/setname.wxss */
+
+.setname {
+  background: #f8f8f8;
+}
+
+.setname-btn {
+  background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+}

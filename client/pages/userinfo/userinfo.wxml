@@ -1,2 +1,40 @@
-<!--pages/userinfo/userinfo.wxml-->
-<text>pages/userinfo/userinfo.wxml</text>
+<!-- pages/userinfo/userinfo.wxml -->
+<view class="container user">
+  <view class="userbg" style="color:{{textColor}}">
+    <image class="{{bgClass}}" src="../../assets/img/userbg.jpg"></image>
+    <image class="avatar" src="../../assets/img/avatar.png"></image>
+    <text class="username">Username</text>
+    <view class="userinfo">
+      <text>201440700100</text>
+      <view class="role">
+        <text>学生</text>
+      </view>
+    </view>
+  </view>
+  <view class="option">
+    <view class="weui-cells__title">设置</view>
+    <view class="weui-cells weui-cells_after-title">
+      <navigator url="../setname/setname" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">修改用户名</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="../setpwd/setpwd" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">修改密码</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+      <view class="weui-cell weui-cell_switch">
+        <view class="weui-cell__bd">Background blur</view>
+        <view class="weui-cell__ft">
+          <switch checked="{{isBlur}}" bindchange="switch1Change" />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_switch">
+        <view class="weui-cell__bd">Black text color </view>
+        <view class="weui-cell__ft">
+          <switch checked="{{isBlack}}" bindchange="switch2Change" />
+        </view>
+      </view>
+    </view>
+    <button class="exit-btn" loading="{{false}}" hover-class="button-hover">退出</button>
+  </view>
+</view>
