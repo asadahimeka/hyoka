@@ -5,9 +5,9 @@ Page({
     username: 'Asdf'
   },
   onLoad(options) {
-    wx.navigateTo({
-      url: '../vieweva/vieweva'
-    })
+    // wx.navigateTo({
+    //   url: '../vieweva/vieweva'
+    // })
   },
   onShow() {
     console.log(1111)

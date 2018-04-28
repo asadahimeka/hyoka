@@ -1,113 +1,57 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+  <div>
+    <mu-raised-button label="toggle drawer" @click="toggle()" />
+    <mu-raised-button label="undocked drawer" @click="toggle(true)" />
+    <mu-drawer :open="open" :docked="docked" @close="toggle()">
+      <mu-appbar title="HYOKA">
+        <mu-icon slot="left" value="home" />
+      </mu-appbar>
+      <mu-list @itemClick="docked ? '' : toggle()">
+        <mu-list-item title="Menu Item 1" />
+        <mu-list-item title="Menu Item 2" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item title="Menu Item 3" />
+        <mu-list-item v-if="docked" @click.native="open = false" title="Close" />
+      </mu-list>
+    </mu-drawer>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  data () {
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      open: false,
+      docked: true
+    }
+  },
+  methods: {
+    toggle(flag) {
+      this.open = !this.open
+      this.docked = !flag
     }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
