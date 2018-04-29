@@ -4,6 +4,7 @@ import auth from './auth'
 
 import HelloWorld from '@/components/HelloWorld'
 import Index from '../views/index.vue'
+import First from '../views/first.vue'
 
 Vue.use(Router)
 
@@ -11,13 +12,23 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'Index',
-      component: Index
-    },
-    {
-      path: '/hello',
-      name: 'HelloWorld',
-      component: HelloWorld
+      component: Index,
+      children: [
+        {
+          path: '',
+          name: 'First',
+          alias: 'index',
+          component: First,
+          meta: {
+            pageTitle: ''
+          }
+        },
+        {
+          path: '/hello',
+          name: 'HelloWorld',
+          component: HelloWorld
+        }
+      ]
     },
     {
       path: '*',

@@ -1,104 +1,69 @@
 <template>
   <div class="layout">
-
-    <div class="header" :class="{'nav-hide':navHide}">
-      <mu-appbar title="Title">
-        <mu-icon-button icon="menu" @click="toggle()" slot="left" />
-        <mu-flat-button label="expand_more" slot="right" />
-        <mu-icon-button icon="expand_more" slot="right" />
-      </mu-appbar>
-    </div>
-
-    <div class="drawer">
-      <mu-drawer :open="open" :docked="docked" @close="toggle()">
-        <router-link to="/">
-          <mu-appbar title="Hyoka Admin">
-            <mu-icon slot="left" value="home" />
-          </mu-appbar>
-        </router-link>
-        <div style="overflow:auto;height:90vh;">
-          <mu-list @itemClick="!docked&&toggle()">
-            <mu-list-item title="课程信息管理">
-              <mu-icon slot="left" value="assignment" />
-            </mu-list-item>
-            <mu-list-item title="学生信息管理">
-              <mu-icon slot="left" value="person_add" />
-            </mu-list-item>
-            <mu-list-item title="教师信息管理">
-              <mu-icon slot="left" value="face" />
-            </mu-list-item>
-            <mu-list-item title="评价指标管理">
-              <mu-icon slot="left" value="star_rate" />
-            </mu-list-item>
-            <mu-list-item title="查看评价信息">
-              <mu-icon slot="left" value="list" />
-            </mu-list-item>
-          </mu-list>
-        </div>
-      </mu-drawer>
-    </div>
-
-    <div class="content" :class="{'nav-hide':navHide}">
-      <div class="wrapper">
-
-        <div class="body">
-          <mu-sub-header>阳光</mu-sub-header>
-          <mu-content-block>
-            散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！
-          </mu-content-block>
-        </div>
-
-        <div class="footer">
-          HYOKA ©2018 Created by Muse-UI
-        </div>
-      </div>
-    </div>
-
+    <Top />
+    <Drawer />
+    <section class="content" :class="{'nav-hide':navHide}">
+      <section class="wrapper">
+        <mu-paper class="body" :zDepth="2">
+          <transition name="bounce" mode="out-in">
+            <router-view v-if="isRouterAlive" />
+          </transition>
+        </mu-paper>
+      </section>
+      <Bottom />
+    </section>
   </div>
 </template>
+
 <script>
+import Top from '../components/header'
+import Drawer from '../components/drawer'
+import Bottom from '../components/footer'
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      open: true,
-      docked: true,
-      navHide: false
+      isRouterAlive: true
     }
   },
+  components: {
+    Top,
+    Drawer,
+    Bottom
+  },
   computed: {
-
+    ...mapState(['docked', 'navHide', 'drOpen'])
   },
   created() {
-    let flag = document.documentElement.clientWidth >= 993
-    this.open = flag
-    this.navHide = !flag
-    this.docked = flag
-    window.addEventListener('resize', () => {
-      let flag = document.documentElement.clientWidth >= 993
-      this.open = flag
-      this.navHide = !flag
-      this.docked = flag
-    })
+    this.resizeFn()
+    window.addEventListener('resize', this.resizeFn)
   },
   methods: {
-    toggle() {
-      this.open = !this.open
-      this.navHide = !this.navHide
+    resizeFn() {
+      let flag = document.documentElement.clientWidth >= 993
+      this.$store.commit('DROPEN', flag)
+      this.$store.commit('NAVHIDE', !flag)
+      this.$store.commit('DOCKED', flag)
+    },
+    reload() {
+      this.isRouterAlive = false
+      this.$nextTick(() => (this.isRouterAlive = true))
     }
   }
 }
 </script>
 
-<style scoped>
-.layout {
+<style>
+/* .layout {
   background-color: rgb(236, 236, 236);
-}
+} */
 
 .header {
   position: fixed;
   left: 256px;
   right: 0;
   top: 0;
+  z-index: 100;
   -webkit-transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
   transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -137,16 +102,86 @@ export default {
 
 .body {
   width: 100%;
-  min-height: 490px;
+  min-height: 500px;
   padding: 10px 20px;
   border-radius: 5px;
-  background-color: white;
+  /* background-color: white; */
 }
 
 .footer {
   width: 100%;
   padding: 20px 0;
   text-align: center;
+}
+
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.slide-enter-active {
+  transition: all 0.3s ease-in-out;
+  transform: translate3d(0, 0, 0);
+}
+.slide-enter {
+  transform: translate3d(-100%, 0, 0);
+}
+.slide-leave-active {
+  transition: all 0.3s ease-in-out;
+  transform: translate3d(-100%, 0, 0);
+}
+.slide-leave {
+  transform: translate3d(0, 0, 0);
+}
+
+.slideDown-enter-active {
+  transition: all 0.3s ease-in-out;
+  transform: translate3d(0, 0, 0);
+}
+.slideDown-enter {
+  transform: translate3d(0, -100%, 0);
+}
+.slideDown-leave-active {
+  transition: all 0.3s ease-in-out;
+  transform: translate3d(0, -100%, 0);
+}
+.slideDown-leave {
+  transform: translate3d(0, 0, 0);
 }
 
 @media (max-width: 993px) {

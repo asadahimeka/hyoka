@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -18,7 +18,16 @@ export default {
 }
 
 .mu-appbar {
-  background: #9c27b0 !important;
+  background: #9c27b0;
+}
+.router-link-active{
+  color: #9c27b0 !important;
+}
+.router-link-active .mu-item-left{
+  color: #9c27b0 !important;
+}
+.router-link-active .mu-item-title{
+  color: #9c27b0 !important;
 }
 
 .clearfix {
@@ -32,6 +41,12 @@ export default {
 }
 .clearfix:after {
   clear: both;
+}
+
+input{
+  background: 0;
+  border: 0;
+  outline: none;
 }
 
 ::-webkit-scrollbar {
