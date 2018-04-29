@@ -62,7 +62,7 @@ export default {
       showDialog({
         title: '退出',
         text: '确定要退出吗？',
-        submitFn() {
+        submitFn: () => {
           showPopup('退出成功')
         }
       })

@@ -5,8 +5,8 @@
         <h1>Setting Info</h1>
       </mu-sub-header>
       <!-- <mu-text-field v-model="value" /><br/> -->
-      <mu-text-field icon="account_circle" label="用户名(不可更改)" v-model="adminname" disabled  fullWidth :errorText="error" />
-      <mu-text-field icon="description" label="昵称" v-model="nickname" hintText="请输入昵称"  fullWidth :errorText="error" />
+      <mu-text-field icon="account_circle" label="用户名(不可更改)" v-model="adminname" disabled  fullWidth />
+      <mu-text-field icon="description" label="昵称" v-model="nickname" hintText="请输入昵称"  fullWidth :errorText="' '" />
       <mu-text-field icon="swap_horiz" label="性别" iconClass="inputicon" fullWidth :errorText="error" :underlineShow="false">
         <mu-radio name="sex" label="男" nativeValue="0" v-model="sex" style="margin-right:10px;" />
         <mu-radio name="sex" label="女" nativeValue="1" v-model="sex" />

@@ -5,8 +5,8 @@
         <h1>Modify Password</h1>
       </mu-sub-header>
       <mu-text-field required icon="lock_open" label="旧密码" hintText="请输入旧密码" type="password" :errorText="error" labelFloat fullWidth/><br><br>
-      <mu-text-field required icon="lock" label="新密码" hintText="请输入新密码" type="password" :errorText="error" labelFloat fullWidth/><br><br>
-      <mu-text-field required icon="lock_outline" label="重复新密码" hintText="请输入密码" type="password" :errorText="error" labelFloat fullWidth/><br><br>
+      <mu-text-field required icon="lock" label="新密码" hintText="请输入新密码" type="password" :errorText="'error'" labelFloat fullWidth/><br><br>
+      <mu-text-field required icon="lock_outline" label="重复新密码" hintText="请重复输入新密码" type="password" :errorText="error" labelFloat fullWidth/><br><br>
       <mu-raised-button label="提交" class="raised-button" primary/>
       <mu-raised-button label="重置" class="raised-button" />
     </mu-col>

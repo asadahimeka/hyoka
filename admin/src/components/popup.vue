@@ -31,7 +31,7 @@ export default {
         this.popup = val.open
         setTimeout(() => {
           this.popup = false
-        }, val.delay || 1500)
+        }, val.delay || 1000)
       }
     }
   }

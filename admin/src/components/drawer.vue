@@ -3,7 +3,7 @@
     <mu-drawer :open="drOpen" :docked="docked" @close="toggle()">
       <router-link to="/">
         <mu-appbar :title="drawerTitle">
-          <mu-icon-button icon="home" slot="left" />
+          <mu-icon-button icon="star" slot="left" />
         </mu-appbar>
       </router-link>
       <div class="list">
@@ -122,7 +122,7 @@ export default {
       showDialog({
         title: '退出',
         text: '确定要退出吗？',
-        submitFn() {
+        submitFn: () => {
           showPopup('退出成功')
         }
       })

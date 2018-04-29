@@ -43,6 +43,10 @@ export default {
   clear: both;
 }
 
+.tac{
+  text-align: center;
+}
+
 input {
   background: 0;
   border: 0;
@@ -56,8 +60,8 @@ input::-webkit-inner-spin-button {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 0px;
+  height: 0px;
 }
 ::-webkit-scrollbar-track {
   border-radius: 0px;
@@ -68,7 +72,6 @@ input::-webkit-inner-spin-button {
   background: rgba(0, 0, 0, 0.2);
 }
 ::-webkit-scrollbar-thumb:hover {
-  border-radius: 5px;
   background: rgba(126, 87, 194, 0.4);
 }
 </style>
