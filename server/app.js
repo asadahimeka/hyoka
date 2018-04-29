@@ -2,9 +2,8 @@ const Koa = require('koa')
 const route = require('koa-route')
 const cors = require('koa2-cors')
 const koaBody = require('koa-body')
-// const bodyParser = require('koa-bodyparser');
+const logger = require('koa-logger')
 const knex = require('knex')
-const fs = require('fs')
 
 const app = new Koa()
 const mysql = knex({
@@ -33,15 +32,6 @@ const getCodeById = async (id) => {
   if (has) {
     return mysql.select().table('test').where('id', id)
   }
-}
-
-const logger = (ctx, next) => {
-  let log = `${new Date().toLocaleString()} ${ctx.request.method} ${ctx.request.url}\n`
-  // fs.appendFile('./history.log', log, function (err) {
-  //   if (err) throw err
-  // })
-  console.log(log)
-  return next()
 }
 
 const test = async (ctx, next) => {
@@ -84,9 +74,8 @@ const main = ctx => {
 }
 
 app.use(cors())
-app.use(logger)
+app.use(logger())
 app.use(koaBody())
-// app.use(bodyParser());
 
 app.use(route.post('/', main))
 app.use(route.get('/test', test))

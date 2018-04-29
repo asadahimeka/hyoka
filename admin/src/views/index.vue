@@ -5,6 +5,7 @@
     <section class="content" :class="{'nav-hide':navHide}">
       <section class="wrapper">
         <mu-paper class="body" :zDepth="2">
+          <Breadcrumb :list="breadcrumb" />
           <transition name="bounce" mode="out-in">
             <router-view v-if="isRouterAlive" />
           </transition>
@@ -12,13 +13,18 @@
       </section>
       <Bottom />
     </section>
+    <Dia-log :options="dialogOpt" />
+    <Popup :options="popupOpt" />
   </div>
 </template>
 
 <script>
 import Top from '../components/header'
 import Drawer from '../components/drawer'
+import Breadcrumb from '../components/breadcrumb'
 import Bottom from '../components/footer'
+import Dialog from '../components/dialog'
+import Popup from '../components/popup'
 import { mapState } from 'vuex'
 export default {
   data() {
@@ -29,10 +35,13 @@ export default {
   components: {
     Top,
     Drawer,
-    Bottom
+    Breadcrumb,
+    Bottom,
+    Popup,
+    'Dia-log': Dialog
   },
   computed: {
-    ...mapState(['docked', 'navHide', 'drOpen'])
+    ...mapState(['docked', 'navHide', 'drOpen', 'breadcrumb', 'dialogOpt', 'popupOpt'])
   },
   created() {
     this.resizeFn()
@@ -102,7 +111,7 @@ export default {
 
 .body {
   width: 100%;
-  min-height: 500px;
+  min-height: 80vh;
   padding: 10px 20px;
   border-radius: 5px;
   /* background-color: white; */
@@ -143,10 +152,10 @@ export default {
 }
 
 .slide-fade-enter-active {
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 }
 .slide-fade-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.1s cubic-bezier(1, 0.5, 0.8, 1);
 }
 .slide-fade-enter,
 .slide-fade-leave-to {
@@ -197,5 +206,9 @@ export default {
   .content {
     padding-top: 64px;
   }
+}
+
+@media (max-width: 480px) {
+
 }
 </style>

@@ -8,7 +8,10 @@ export default new Vuex.Store({
     docked: true,
     navHide: false,
     drOpen: true,
-    cTitle: 'Index'
+    cTitle: '',
+    breadcrumb: {},
+    dialogOpt: {},
+    popupOpt: {}
 
   },
 
@@ -16,7 +19,10 @@ export default new Vuex.Store({
     DOCKED: (state, val) => (state.docked = val),
     NAVHIDE: (state, val) => (state.navHide = val),
     DROPEN: (state, val) => (state.drOpen = val),
-    CTITLE: (state, val) => (state.cTitle = val)
+    CTITLE: (state, val) => (state.cTitle = val),
+    BREAD: (state, val) => (state.breadcrumb = val),
+    DIALOG: (state, val) => (state.dialogOpt = val),
+    POPUP: (state, val) => (state.popupOpt = val)
 
   },
 

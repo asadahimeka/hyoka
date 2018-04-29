@@ -6,18 +6,20 @@
       <input class="new-todo" :class="{'index-new-todo':where=='index'}" autofocus autocomplete="off" placeholder="What needs to be done?" v-model="newTodo" @keyup.enter="addTodo">
     </header>
     <section class="main" :class="{'index-main':where=='index'}" v-show="todos.length" v-cloak>
-      <ul class="todo-list">
-        <li v-for="todo in filteredTodos" class="todo" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
-          <div class="view">
-            <input class="toggle" type="checkbox" v-model="todo.completed">
-            <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
-            <button class="destroy" @click="removeTodo(todo)"></button>
-          </div>
-          <input class="edit" type="text" v-model="todo.title" v-todo-focus="todo == editedTodo" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)" @keyup.esc="cancelEdit(todo)">
-        </li>
-      </ul>
+      <!-- <ul class="todo-list"> -->
+        <transition-group name="list-complete" class="todo-list" tag="ul">
+          <li v-for="todo in filteredTodos" class="todo list-complete-item" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
+            <div class="view">
+              <input class="toggle" type="checkbox" v-model="todo.completed">
+              <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
+              <button class="destroy" @click="removeTodo(todo)"></button>
+            </div>
+            <input class="edit" type="text" v-model="todo.title" v-todo-focus="todo == editedTodo" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)" @keyup.esc="cancelEdit(todo)">
+          </li>
+        </transition-group>
+      <!-- </ul> -->
     </section>
-    <footer class="footer clearfix" v-show="todos.length">
+    <footer v-if="where=='index'" class="footer clearfix" v-show="todos.length">
       <div style="display: flex;justify-content: space-between;">
         <span class="todo-count">
           <strong v-text="remaining"></strong> {{pluralize(remaining)}} left
@@ -38,9 +40,10 @@
         </li>
       </ul>
     </footer>
-    <footer class="info">
+    <footer v-if="where=='index'" class="info">
       <p>DATA IS STORED LOCALLY</p>
       <p>Double-click to edit a todo</p>
+      {{where}}
       <p>Written by
         <a href="http://evanyou.me">Evan You,</a>
         Part of
@@ -53,13 +56,12 @@
 <script>
 // http://todomvc.com/examples/vue/
 // Full spec-compliant TodoMVC with localStorage persistence
-// and hash-based routing in ~120 effective lines of JavaScript.
 
 // localStorage persistence
 const STORAGE_KEY = 'todos-vuejs-2.0'
 const todoStorage = {
   fetch() {
-    var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+    let todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
     todos.forEach((todo, index) => (todo.id = index))
     todoStorage.uid = todos.length
     return todos
@@ -136,12 +138,11 @@ export default {
       if (!value) {
         return
       }
-      this.todos.push({
+      this.todos.unshift({
         id: todoStorage.uid++,
         title: value,
         completed: false
       })
-      this.todos = this.todos.reverse()
       this.newTodo = ''
     },
 
@@ -200,6 +201,18 @@ export default {
 </script>
 
 <style scoped>
+.list-complete-item {
+  transition: all .3s;
+}
+.list-complete-enter,
+.list-complete-leave-to {
+  opacity: 0;
+  transform: translateY(-24px);
+}
+.list-complete-leave-active {
+  position: absolute;
+}
+
 html,
 body {
   margin: 0;
@@ -571,7 +584,7 @@ html .clear-completed:active {
     appearance: none;
   }
 }
-@media (max-width: 993px){
+@media (max-width: 993px) {
   .todoapp {
     max-width: 50vw;
   }
@@ -594,7 +607,7 @@ html .clear-completed:active {
     max-height: 30vh;
   }
 
-  .new-todo{
+  .new-todo {
     font-size: 16px;
   }
 }

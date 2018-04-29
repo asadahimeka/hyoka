@@ -20,13 +20,13 @@ export default {
 .mu-appbar {
   background: #9c27b0;
 }
-.router-link-active{
+.router-link-active {
   color: #9c27b0 !important;
 }
-.router-link-active .mu-item-left{
+.router-link-active .mu-item-left {
   color: #9c27b0 !important;
 }
-.router-link-active .mu-item-title{
+.router-link-active .mu-item-title {
   color: #9c27b0 !important;
 }
 
@@ -43,10 +43,16 @@ export default {
   clear: both;
 }
 
-input{
+input {
   background: 0;
   border: 0;
   outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;    
+   margin: 0;
 }
 
 ::-webkit-scrollbar {
