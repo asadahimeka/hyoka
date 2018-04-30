@@ -240,6 +240,7 @@ export default {
 .mng__table {
   margin-top: 20px;
   margin-bottom: 40px;
+  transition: .3s;
 }
 
 @media (max-width: 480px) {

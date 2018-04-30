@@ -1,5 +1,5 @@
 <template>
-  <mu-popup position="top" :overlay="false" :popupClass="'popup-top-'+(options.type||'default')" :open="popup">
+  <mu-popup position="top" :overlay="false" :popupClass="'popup-top-'+(options.type||'default')" :open="options.open">
     {{options.msg}}
   </mu-popup>
 </template>
@@ -16,25 +16,15 @@ export const showPopup = (opt) => {
     open: true,
     ...opt
   })
+  setTimeout(() => {
+    store.commit('POPUP', {
+      open: false
+    })
+  }, opt.delay || 1000)
 }
 export default {
   name: 'Popup',
-  props: ['options'],
-  data() {
-    return {
-      popup: false
-    }
-  },
-  watch: {
-    options(val) {
-      if (val) {
-        this.popup = val.open
-        setTimeout(() => {
-          this.popup = false
-        }, val.delay || 1000)
-      }
-    }
-  }
+  props: ['options']
 }
 </script>
 

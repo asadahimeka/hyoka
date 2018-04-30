@@ -11,7 +11,7 @@
       <mu-col width="100" tablet="100" desktop="100">
         <mu-raised-button @click="add()" label="Add" icon="add_circle" secondary/>
         <transition name="slideDown" mode="out-in">
-          <mu-table v-show="adding" fixedHeader :showCheckbox="false" :selectable="false" ref="table">
+          <mu-table v-show="docked&&adding" fixedHeader :showCheckbox="false" :selectable="false" ref="table">
             <mu-thead>
               <mu-tr>
                 <mu-th>CNo</mu-th>
@@ -38,6 +38,21 @@
               </mu-tr>
             </mu-tbody>
           </mu-table>
+        </transition>
+        <transition name="slideDown" mode="out-in">
+          <mu-list v-show="!docked&&adding">
+            <mu-flexbox>
+              <mu-flexbox-item class="tac">
+                <mu-icon-button style="color:green;" icon="done" @click="doneAdd()" />
+              </mu-flexbox-item>
+              <mu-flexbox-item class="tac">
+                <mu-icon-button icon="cancel" style="color:red;" @click="cancelAdd()" />
+              </mu-flexbox-item>
+            </mu-flexbox>
+            <div v-for="(item) in [0,1,2]" :key="item">
+              <mu-text-field icon="info" label="label" hintText="请输入" :errorText="errorText" labelFloat fullWidth/>
+            </div>
+          </mu-list>
         </transition>
 
         <mu-table class="mng__table" fixedHeader :showCheckbox="false" :selectable="false" ref="table">
@@ -88,34 +103,62 @@
         </mu-table>
 
         <div v-if="!docked" class="mng__list">
-          <mu-list>
-            <mu-sub-header inset>Folders</mu-sub-header>
-            <mu-list-item title="Photos" describeText="Jan 20, 2014">
-              <mu-icon value="info" slot="left" />
-            </mu-list-item>
-            <mu-list-item title="Photos" describeText="Jan 20, 2014">
-              <mu-icon value="info" slot="left" />
-            </mu-list-item>
-            <mu-list-item title="Photos">
-              <mu-icon value="info" slot="left" />
-            </mu-list-item>
+          <mu-list v-for="(list,ii) in [0,1]" :key="ii" @itemClick="openBottomSheet(ii)">
+            <mu-sub-header inset>
+              Folders
+            </mu-sub-header>
+            <mu-flexbox>
+              <mu-flexbox-item class="tac">
+                <mu-icon-button v-show="editing==ii" style="color:green;" icon="done" @click="doneEdit(ii)" />
+              </mu-flexbox-item>
+              <mu-flexbox-item class="tac">
+                <mu-icon-button v-show="editing==ii" style="color:red;" icon="cancel" @click="cancelEdit()" />
+              </mu-flexbox-item>
+            </mu-flexbox>
+            <div v-for="(item) in [0,1,2]" :key="item">
+              <transition name="td1" mode="out-in">
+                <mu-list-item v-show="editing!=ii" title="Photos" describeText="Jan 20, 2014">
+                  <mu-icon value="info_outline" slot="left" />
+                </mu-list-item>
+              </transition>
+              <transition name="td1" mode="out-in">
+                <mu-text-field v-show="editing==ii" icon="info" label="label" hintText="请输入" :errorText="errorText" labelFloat fullWidth/>
+              </transition>
+            </div>
           </mu-list>
         </div>
       </mu-col>
     </mu-row>
+
+    <mu-bottom-sheet :open="bottomSheet" @close="closeBottomSheet">
+      <mu-list @itemClick="closeBottomSheet">
+        <mu-sub-header>
+          Action
+        </mu-sub-header>
+        <mu-list-item title="Edit" @click="edit(editIndex)">
+          <mu-icon value="edit" color="green" slot="left" />
+        </mu-list-item>
+        <mu-list-item title="Delete" @click="del()">
+          <mu-icon value="delete" color="red" slot="left" />
+        </mu-list-item>
+      </mu-list>
+    </mu-bottom-sheet>
+
   </div>
 </template>
 
 <script>
-import { showDialog } from '../../components/dialog'
-import { showPopup } from '../../components/popup'
 export default {
   name: 'Course',
   data() {
     return {
       adding: false,
       editing: -1,
-      delText: 'Delete'
+      editIndex: -1,
+      delText: 'Delete',
+      options: {},
+      bottomSheet: false,
+      errorText: ''
     }
   },
   computed: {
@@ -123,38 +166,55 @@ export default {
       return this.$store.state['docked']
     }
   },
+  created() {
+
+  },
   methods: {
     add() {
       this.adding = true
     },
     doneAdd() {
       this.adding = false
-      showPopup('添加成功')
+      this.$popup('添加成功')
     },
     cancelAdd() {
       this.adding = false
     },
     edit(index) {
-      this.editing = index
-      this.delText = 'Cancel'
+      if (this.docked) {
+        if (~this.editing) return
+        this.editing = index
+        this.delText = 'Cancel'
+      } else {
+        this.editing = this.editIndex
+        this.closeBottomSheet()
+      }
     },
     doneEdit(index) {
       this.editing = -1
       this.delText = 'Delete'
-      showPopup('编辑成功')
+      this.$popup('编辑成功')
     },
     cancelEdit() {
       this.editing = -1
       this.delText = 'Delete'
     },
     del() {
-      showDialog({
+      this.$dialog({
         title: '删除',
         text: '确定要删除吗？',
         submitFn: () => {
-          showPopup('删除成功')
+          this.$popup('删除成功')
         }
       })
+    },
+    closeBottomSheet() {
+      this.bottomSheet = false
+    },
+    openBottomSheet(index) {
+      if (~this.editing) return
+      this.editIndex = index
+      this.bottomSheet = true
     }
   }
 }

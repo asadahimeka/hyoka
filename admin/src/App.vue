@@ -43,7 +43,7 @@ export default {
   clear: both;
 }
 
-.tac{
+.tac {
   text-align: center;
 }
 
@@ -55,8 +55,8 @@ input {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none !important;    
-   margin: 0;
+  -webkit-appearance: none !important;
+  margin: 0;
 }
 
 ::-webkit-scrollbar {
