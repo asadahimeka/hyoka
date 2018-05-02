@@ -1,0 +1,7 @@
+export * as UserLoader from './UserLoader'
+export * as CourseLoader from './CourseLoader'
+export * as EvaLoader from './EvaLoader'
+export * as KurasuLoader from './KurasuLoader'
+export * as StudentLoader from './StudentLoader'
+export * as TeacherLoader from './TeacherLoader'
+export * as RemarksLoader from './RemarksLoader'

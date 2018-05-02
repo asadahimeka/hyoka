@@ -75,6 +75,12 @@ export default {
   components: {
     Todo
   },
+  created() {
+
+  },
+  mounted() {
+
+  },
   computed: {
     ...mapState(['docked', 'navHide', 'drOpen'])
   }

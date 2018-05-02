@@ -15,9 +15,7 @@ router.beforeEach((to, from, next) => {
   let bread = to.meta.bread
   if (title) {
     // document.title = title
-    // setTimeout(() => {
     store.commit('CTITLE', title)
-    // }, 500)
   }
   if (bread) {
     store.commit('BREAD', bread)
@@ -31,6 +29,10 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+})
+
+router.afterEach((to, from) => {
+
 })
 
 export default router

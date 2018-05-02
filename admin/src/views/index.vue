@@ -6,6 +6,7 @@
       <section class="wrapper">
         <mu-paper class="body" :zDepth="2">
           <Breadcrumb :list="breadcrumb" />
+          <mu-circular-progress v-if="loading" class="page-loading" :size="90" />
           <transition name="bounce" mode="out-in">
             <router-view v-if="isRouterAlive" />
           </transition>
@@ -41,7 +42,15 @@ export default {
     'Dia-log': Dialog
   },
   computed: {
-    ...mapState(['docked', 'navHide', 'drOpen', 'breadcrumb', 'dialogOpt', 'popupOpt'])
+    ...mapState([
+      'docked',
+      'navHide',
+      'drOpen',
+      'breadcrumb',
+      'dialogOpt',
+      'popupOpt',
+      'loading'
+    ])
   },
   created() {
     this.resizeFn()
@@ -115,6 +124,16 @@ export default {
   padding: 10px 20px;
   border-radius: 5px;
   /* background-color: white; */
+}
+
+.page-loading {
+  position: relative;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  width: 100% !important;
+  height: 90vh !important;
+  padding-top: 20vh;
 }
 
 .footer {
@@ -240,7 +259,7 @@ export default {
 .mng__table {
   margin-top: 20px;
   margin-bottom: 40px;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 @media (max-width: 480px) {

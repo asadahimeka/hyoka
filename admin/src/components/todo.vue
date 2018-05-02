@@ -3,20 +3,20 @@
     <header>
       <!-- <h1>todos</h1> -->
       <input class="toggle-all" type="checkbox" v-model="allDone" style="z-index:10;">
-      <input class="new-todo" :class="{'index-new-todo':where=='index'}" autofocus autocomplete="off" placeholder="What needs to be done?" v-model="newTodo" @keyup.enter="addTodo">
+      <input class="new-todo" :class="{'index-new-todo':where=='index'}" :autofocus="where!='index'" autocomplete="off" placeholder="What needs to be done?" v-model="newTodo" @keyup.enter="addTodo">
     </header>
     <section class="main" :class="{'index-main':where=='index'}" v-show="todos.length" v-cloak>
       <!-- <ul class="todo-list"> -->
-        <transition-group name="list-complete" class="todo-list" tag="ul">
-          <li v-for="todo in filteredTodos" class="todo list-complete-item" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
-            <div class="view">
-              <input class="toggle" type="checkbox" v-model="todo.completed">
-              <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
-              <button class="destroy" @click="removeTodo(todo)"></button>
-            </div>
-            <input class="edit" type="text" v-model="todo.title" v-todo-focus="todo == editedTodo" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)" @keyup.esc="cancelEdit(todo)">
-          </li>
-        </transition-group>
+      <transition-group name="list-complete" class="todo-list" tag="ul">
+        <li v-for="todo in filteredTodos" class="todo list-complete-item" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
+          <div class="view">
+            <input class="toggle" type="checkbox" v-model="todo.completed">
+            <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
+            <button class="destroy" @click="removeTodo(todo)"></button>
+          </div>
+          <input class="edit" type="text" v-model="todo.title" v-todo-focus="todo == editedTodo" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)" @keyup.esc="cancelEdit(todo)">
+        </li>
+      </transition-group>
       <!-- </ul> -->
     </section>
     <footer v-if="where=='index'" class="footer clearfix" v-show="todos.length">
@@ -191,7 +191,7 @@ export default {
   // before focusing on the input field.
   // http://vuejs.org/guide/custom-directive.html
   directives: {
-    'todo-focus': function (el, binding) {
+    'todo-focus': function (el, binding, vnode) {
       if (binding.value) {
         el.focus()
       }
@@ -202,7 +202,7 @@ export default {
 
 <style scoped>
 .list-complete-item {
-  transition: all .3s;
+  transition: all 0.3s;
 }
 .list-complete-enter,
 .list-complete-leave-to {

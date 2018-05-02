@@ -11,7 +11,8 @@ export default new Vuex.Store({
     cTitle: '',
     breadcrumb: {},
     dialogOpt: {},
-    popupOpt: {}
+    popupOpt: {},
+    loading: false
 
   },
 
@@ -22,7 +23,8 @@ export default new Vuex.Store({
     CTITLE: (state, val) => (state.cTitle = val),
     BREAD: (state, val) => (state.breadcrumb = val),
     DIALOG: (state, val) => (state.dialogOpt = val),
-    POPUP: (state, val) => (state.popupOpt = val)
+    POPUP: (state, val) => (state.popupOpt = val),
+    LOADING: (state, val) => (state.loading = val)
 
   },
 

@@ -12,7 +12,7 @@
       <Changetheme where="header" slot="right" />
     </mu-appbar>
     <mu-popover :trigger="trigger" :open="popoverOpen" @close="handlePopoverClose">
-      <Todo />
+      <Todo where="header" />
     </mu-popover>
   </div>
 </template>

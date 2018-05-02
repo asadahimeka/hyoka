@@ -1,0 +1,531 @@
+input ChangePasswordInput {
+  oldPassword: String!
+
+  """user new password"""
+  password: String!
+  clientMutationId: String
+}
+
+type ChangePasswordPayload {
+  error: String
+  me: User
+  clientMutationId: String
+}
+
+"""Represents Course"""
+type Course implements Node {
+  """The ID of an object"""
+  id: ID!
+  name: String
+  cno: String
+  teacher: String
+  isEva: Boolean
+  comment: String
+  createdAt: String
+  updatedAt: String
+}
+
+input CourseAddInput {
+  name: String!
+  cno: String!
+  teacher: String!
+  isEva: Boolean
+  comment: String
+  clientMutationId: String
+}
+
+type CourseAddPayload {
+  courseEdge: CourseEdge
+  error: String
+  clientMutationId: String
+}
+
+"""A connection to a list of items."""
+type CourseConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CourseEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type CourseEdge {
+  """The item at the end of the edge"""
+  node: Course
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input CourseEditInput {
+  id: ID!
+  name: String
+  cno: String
+  teacher: String
+  isEva: Boolean
+  comment: String
+  clientMutationId: String
+}
+
+type CourseEditPayload {
+  course: Course
+  error: String
+  clientMutationId: String
+}
+
+input deleteMutationInput {
+  id: ID!
+  who: String!
+  clientMutationId: String
+}
+
+type deleteMutationPayload {
+  error: String
+  clientMutationId: String
+}
+
+"""Represents Eva"""
+type Eva implements Node {
+  """The ID of an object"""
+  id: ID!
+  name: String
+  evno: String
+  comment: String
+  createdAt: String
+  updatedAt: String
+}
+
+input EvaAddInput {
+  name: String!
+  evno: String!
+  comment: String
+  clientMutationId: String
+}
+
+type EvaAddPayload {
+  evaEdge: EvaEdge
+  error: String
+  clientMutationId: String
+}
+
+"""A connection to a list of items."""
+type EvaConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [EvaEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type EvaEdge {
+  """The item at the end of the edge"""
+  node: Eva
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input EvaEditInput {
+  id: ID!
+  name: String
+  evno: String
+  comment: String
+  clientMutationId: String
+}
+
+type EvaEditPayload {
+  eva: Eva
+  error: String
+  clientMutationId: String
+}
+
+"""Represents Kurasu"""
+type Kurasu implements Node {
+  """The ID of an object"""
+  id: ID!
+  name: String
+  kno: String
+  courses: [String]
+  comment: String
+  createdAt: String
+  updatedAt: String
+}
+
+input KurasuAddInput {
+  name: String!
+  kno: String!
+  courses: String
+  comment: String
+  clientMutationId: String
+}
+
+type KurasuAddPayload {
+  kurasuEdge: KurasuEdge
+  error: String
+  clientMutationId: String
+}
+
+"""A connection to a list of items."""
+type KurasuConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [KurasuEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type KurasuEdge {
+  """The item at the end of the edge"""
+  node: Kurasu
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input KurasuEditInput {
+  id: ID!
+  name: String
+  kno: String
+  courses: String
+  comment: String
+  clientMutationId: String
+}
+
+type KurasuEditPayload {
+  kurasu: Kurasu
+  error: String
+  clientMutationId: String
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type LoginPayload {
+  token: String
+  error: String
+  clientMutationId: String
+}
+
+type Mutation {
+  Login(input: LoginInput!): LoginPayload
+  Register(input: RegisterInput!): RegisterPayload
+  ChangePassword(input: ChangePasswordInput!): ChangePasswordPayload
+  StudentAdd(input: StudentAddInput!): StudentAddPayload
+  CourseAdd(input: CourseAddInput!): CourseAddPayload
+  EvaAdd(input: EvaAddInput!): EvaAddPayload
+  KurasuAdd(input: KurasuAddInput!): KurasuAddPayload
+  TeacherAdd(input: TeacherAddInput!): TeacherAddPayload
+  StudentEdit(input: StudentEditInput!): StudentEditPayload
+  CourseEdit(input: CourseEditInput!): CourseEditPayload
+  EvaEdit(input: EvaEditInput!): EvaEditPayload
+  KurasuEdit(input: KurasuEditInput!): KurasuEditPayload
+  TeacherEdit(input: TeacherEditInput!): TeacherEditPayload
+  UserEdit(input: UserEditInput!): UserEditPayload
+  RemarksAdd(input: RemarksAddInput!): RemarksAddPayload
+  deleteMutation(input: deleteMutationInput!): deleteMutationPayload
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+"""The root of all... queries"""
+type Query {
+  user(id: ID!): User
+  student(id: ID!): Student
+  course(id: ID!): Course
+  eva(id: ID!): Eva
+  remarks(id: ID!): Remarks
+  teacher(id: ID!): Teacher
+  kurasu(id: ID!): Kurasu
+  users(after: String, first: Int, before: String, last: Int, search: String): UserConnection
+  students(after: String, first: Int, before: String, last: Int, search: String): StudentConnection
+  courses(after: String, first: Int, before: String, last: Int, search: String): CourseConnection
+  evas(after: String, first: Int, before: String, last: Int, search: String): EvaConnection
+  remarkss(after: String, first: Int, before: String, last: Int, search: String): RemarksConnection
+  teachers(after: String, first: Int, before: String, last: Int, search: String): TeacherConnection
+  kurasus(after: String, first: Int, before: String, last: Int, search: String): KurasuConnection
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+  me: User
+}
+
+input RegisterInput {
+  name: String!
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type RegisterPayload {
+  token: String
+  error: String
+  clientMutationId: String
+}
+
+"""Represents Remarks"""
+type Remarks implements Node {
+  """The ID of an object"""
+  id: ID!
+  cno: String
+  sno: String
+  evas: [String]
+  remark: Int
+  comment: String
+  createdAt: String
+  updatedAt: String
+}
+
+input RemarksAddInput {
+  cno: String!
+  sno: String!
+  evas: [String]!
+  remark: Int!
+  comment: String
+  clientMutationId: String
+}
+
+type RemarksAddPayload {
+  remarksEdge: RemarksEdge
+  error: String
+  clientMutationId: String
+}
+
+"""A connection to a list of items."""
+type RemarksConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [RemarksEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type RemarksEdge {
+  """The item at the end of the edge"""
+  node: Remarks
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""Represents Student"""
+type Student implements Node {
+  """The ID of an object"""
+  id: ID!
+  name: String
+  sno: String
+  sex: String
+  birthday: String
+  kurasu: String
+  department: String
+  major: String
+  hadEva: [String]
+  comment: String
+  createdAt: String
+  updatedAt: String
+}
+
+input StudentAddInput {
+  name: String!
+  sno: String!
+  sex: String!
+  birthday: String
+  kurasu: String!
+  department: String!
+  major: String!
+  comment: String
+  clientMutationId: String
+}
+
+type StudentAddPayload {
+  studentEdge: StudentEdge
+  viewer: User
+  error: String
+  clientMutationId: String
+}
+
+"""A connection to a list of items."""
+type StudentConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [StudentEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type StudentEdge {
+  """The item at the end of the edge"""
+  node: Student
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input StudentEditInput {
+  id: ID!
+  name: String
+  sno: String
+  sex: String
+  birthday: String
+  kurasu: String
+  department: String
+  major: String
+  comment: String
+  clientMutationId: String
+}
+
+type StudentEditPayload {
+  student: Student
+  error: String
+  clientMutationId: String
+}
+
+"""Represents Teacher"""
+type Teacher implements Node {
+  """The ID of an object"""
+  id: ID!
+  name: String
+  tno: String
+  sex: String
+  birthday: String
+  department: String
+  comment: String
+  createdAt: String
+  updatedAt: String
+}
+
+input TeacherAddInput {
+  name: String!
+  tno: String!
+  sex: String!
+  birthday: String
+  department: String!
+  comment: String
+  clientMutationId: String
+}
+
+type TeacherAddPayload {
+  teacherEdge: TeacherEdge
+  error: String
+  clientMutationId: String
+}
+
+"""A connection to a list of items."""
+type TeacherConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [TeacherEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type TeacherEdge {
+  """The item at the end of the edge"""
+  node: Teacher
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input TeacherEditInput {
+  id: ID!
+  name: String
+  tno: String
+  sex: String
+  birthday: String
+  department: String
+  comment: String
+  clientMutationId: String
+}
+
+type TeacherEditPayload {
+  teacher: Teacher
+  error: String
+  clientMutationId: String
+}
+
+"""Represents User"""
+type User implements Node {
+  """The ID of an object"""
+  id: ID!
+  name: String
+  nickname: String
+  password: String
+  email: String
+  role: String
+  active: Boolean
+  createdAt: String
+  updatedAt: String
+}
+
+"""A connection to a list of items."""
+type UserConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge"""
+  node: User
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input UserEditInput {
+  id: ID!
+  name: String
+  nickname: String
+  password: String
+  email: String
+  role: String
+  active: Boolean
+  clientMutationId: String
+}
+
+type UserEditPayload {
+  user: User
+  error: String
+  clientMutationId: String
+}

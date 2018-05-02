@@ -1,5 +1,10 @@
+import store from '../store'
 import { showDialog } from '../components/dialog'
 import { showPopup } from '../components/popup'
+
+const loading = (flag) => {
+  store.commit('LOADING', !flag)
+}
 
 export default {
   install(Vue, options) {
@@ -9,6 +14,9 @@ export default {
       },
       '$popup': {
         value: showPopup
+      },
+      '$loading': {
+        value: loading
       }
     })
   }
