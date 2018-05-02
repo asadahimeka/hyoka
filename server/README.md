@@ -1,4 +1,4 @@
-# Hyoka GraphQL Backend with MongoDB
+# Hyoka Backend by koa with GraphQL and MongoDB
 
 Hyoka mp project server-side support created by Create-GraphQL
 

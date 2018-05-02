@@ -10,24 +10,29 @@ const router = new Router({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   let title = to.meta.pageTitle
   let bread = to.meta.bread
   if (title) {
-    // document.title = title
     store.commit('CTITLE', title)
   }
   if (bread) {
     store.commit('BREAD', bread)
   }
-  if (to.matched.some(r => r.meta.requireAuth)) {
-    if (auth.loggedIn()) {
-      next()
+  if (!to.meta.noAuth) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    let loggedIn = await auth.loggedIn()
+    if (!loggedIn) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
     } else {
-      next({ path: '/Logon', query: { redirect: to.fullPath } })
+      next()
     }
   } else {
-    next()
+    next() // Make sure to call next()
   }
 })
 

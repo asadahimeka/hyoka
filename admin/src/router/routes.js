@@ -13,6 +13,7 @@ import Evamng from '../views/manage/evamng.vue'
 import Student from '../views/manage/student.vue'
 import Teacher from '../views/manage/teacher.vue'
 import Vieweva from '../views/manage/vieweva.vue'
+import Classinfo from '../views/manage/classinfo.vue'
 
 import Login from '../views/login.vue'
 
@@ -128,6 +129,25 @@ const routes = [{
     }
   },
   {
+    path: 'classinfo',
+    name: 'Class',
+    component: Classinfo,
+    meta: {
+      pageTitle: 'Classinfo',
+      bread: [
+        {
+          icon: 'home',
+          title: 'Home',
+          href: '#/index'
+        },
+        {
+          icon: 'class',
+          title: 'Classinfo'
+        }
+      ]
+    }
+  },
+  {
     path: 'evamng',
     name: 'Evamng',
     component: Evamng,
@@ -208,21 +228,24 @@ const routes = [{
   name: 'Login',
   component: Login,
   meta: {
-    pageTitle: 'Login'
+    pageTitle: 'Login',
+    noAuth: true
   }
 }, {
   path: '/hello',
   name: 'HelloWorld',
   component: HelloWorld,
   meta: {
-    pageTitle: 'Hello'
+    pageTitle: 'Hello',
+    noAuth: true
   }
 }, {
   path: '*',
   name: 'Notfound',
   component: NFD,
   meta: {
-    pageTitle: 'NOT FOUND'
+    pageTitle: 'NOT FOUND',
+    noAuth: true
   }
 }]
 

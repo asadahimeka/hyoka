@@ -1,7 +1,6 @@
 import DataLoader from 'dataloader'
 import CourseModel from '../model/Course'
-import connectionFromMongoCursor from './ConnectionFromMongoCursor'
-import mongooseLoader from './mongooseLoader'
+import { connectionFromMongoCursor, mongooseLoader } from '@entria/graphql-mongoose-loader'
 
 export default class Course {
   constructor(data) {

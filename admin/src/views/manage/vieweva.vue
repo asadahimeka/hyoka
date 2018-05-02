@@ -14,33 +14,35 @@
             <mu-tr>
               <mu-th>CNo</mu-th>
               <mu-th>CName</mu-th>
-              <mu-th>Teacher</mu-th>
-              <mu-th>TNo</mu-th>
-              <mu-th>Department</mu-th>
+              <mu-th>SNo</mu-th>
+              <mu-th>SName</mu-th>
+              <mu-th>Remark</mu-th>
             </mu-tr>
           </mu-thead>
           <mu-tbody>
 
-              <mu-tr v-for="i in [0,1,2,3]" :key="i">
-                <mu-td>C0001</mu-td>
-                <mu-td>John Smith</mu-td>
-                <mu-td>Employed</mu-td>
-                <mu-td>Employed</mu-td>
-                <mu-td>Employed</mu-td>
-              </mu-tr>
+            <mu-tr v-for="item in remarks" :key="item.id">
+              <mu-td>{{item.cno}}</mu-td>
+              <mu-td>{{item.cname}}</mu-td>
+              <mu-td>{{item.sno}}</mu-td>
+              <mu-td>{{item.sname}}</mu-td>
+              <mu-td>{{item.remark}}</mu-td>
+            </mu-tr>
 
           </mu-tbody>
         </mu-table>
 
+        <h3 v-if="!loading&&!remarks.length" style="margin-top: 10vw;text-align:center;">暂无信息</h3>
+
         <div v-if="!docked" class="mng__list">
-          <mu-list v-for="(list,ii) in [0,1]" :key="ii" @itemClick="openBottomSheet(ii)">
+          <mu-list v-for="item in remarks" :key="item.id">
             <mu-sub-header inset>
-              Folders
+              Remark
             </mu-sub-header>
-            <div v-for="(item) in [0,1,2]" :key="item">
-                <mu-list-item v-show="editing!=ii" title="Photos" describeText="Jan 20, 2014">
-                  <mu-icon value="info_outline" slot="left" />
-                </mu-list-item>
+            <div>
+              <mu-list-item :title="item.cno+' '+item.remark" :describeText="item.sno">
+                <mu-icon value="info_outline" slot="left" />
+              </mu-list-item>
             </div>
           </mu-list>
         </div>
@@ -54,13 +56,8 @@
 export default {
   data() {
     return {
-      adding: false,
-      editing: -1,
-      editIndex: -1,
-      delText: 'Delete',
-      options: {},
-      bottomSheet: false,
-      errorText: ''
+      remarks: [],
+      loading: true
     }
   },
   computed: {
@@ -68,56 +65,22 @@ export default {
       return this.$store.state['docked']
     }
   },
-  created() {
-
+  async created() {
+    try {
+      this.$loading()
+      let res = await this.$api.getRemarks()
+      this.remarks = res.data.remarkss.edges
+      this.remarks = this.remarks.map(e => e.node)
+      this.loading = false
+      this.$loading('close')
+    } catch (err) {
+      console.error(err)
+      this.loading = false
+      this.$loading('close')
+    }
   },
   methods: {
-    add() {
-      this.adding = true
-    },
-    doneAdd() {
-      this.adding = false
-      this.$popup('添加成功')
-    },
-    cancelAdd() {
-      this.adding = false
-    },
-    edit(index) {
-      if (this.docked) {
-        if (~this.editing) return
-        this.editing = index
-        this.delText = 'Cancel'
-      } else {
-        this.editing = this.editIndex
-        this.closeBottomSheet()
-      }
-    },
-    doneEdit(index) {
-      this.editing = -1
-      this.delText = 'Delete'
-      this.$popup('编辑成功')
-    },
-    cancelEdit() {
-      this.editing = -1
-      this.delText = 'Delete'
-    },
-    del() {
-      this.$dialog({
-        title: '删除',
-        text: '确定要删除吗？',
-        submitFn: () => {
-          this.$popup('删除成功')
-        }
-      })
-    },
-    closeBottomSheet() {
-      this.bottomSheet = false
-    },
-    openBottomSheet(index) {
-      if (~this.editing) return
-      this.editIndex = index
-      this.bottomSheet = true
-    }
+
   }
 }
 </script>

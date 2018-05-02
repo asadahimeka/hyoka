@@ -16,7 +16,7 @@ const Schema = new mongoose.Schema({
   },
   isEva: {
     type: Boolean,
-    required: true
+    required: false
   },
   comment: {
     type: String,

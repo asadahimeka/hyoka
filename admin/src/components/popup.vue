@@ -29,26 +29,25 @@ export default {
 </script>
 
 <style>
-.popup-top-default {
+.popup-top-default,
+.popup-top-warn,
+.popup-top-suc {
   width: 100%;
-  opacity: 0.8;
+  opacity: 0.9;
   height: 48px;
   line-height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   max-width: 375px;
+  font-weight: bold;
 }
 .popup-top-warn {
-  width: 100%;
-  opacity: 0.8;
-  height: 48px;
-  line-height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 375px;
   background: #ef5350 !important;
+  color: #fff !important;
+}
+.popup-top-suc {
+  background: #009966 !important;
   color: #fff !important;
 }
 </style>

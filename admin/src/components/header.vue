@@ -63,7 +63,11 @@ export default {
         title: '退出',
         text: '确定要退出吗？',
         submitFn: () => {
+          localStorage.removeItem('jt')
           showPopup('退出成功')
+          setTimeout(() => {
+            this.$router.push('/login')
+          }, 500)
         }
       })
     }

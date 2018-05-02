@@ -55,6 +55,11 @@ export default {
           title: '信息管理',
           items: [
             {
+              icon: 'class',
+              title: '班级信息管理',
+              to: '/classinfo'
+            },
+            {
               icon: 'date_range',
               title: '课程信息管理',
               to: '/course'
@@ -123,7 +128,11 @@ export default {
         title: '退出',
         text: '确定要退出吗？',
         submitFn: () => {
+          localStorage.removeItem('jt')
           showPopup('退出成功')
+          setTimeout(() => {
+            this.$router.push('/login')
+          }, 500)
         }
       })
     }

@@ -4,14 +4,18 @@ import qs from 'qs'
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 // axios.defaults.baseURL = ''
 axios.interceptors.request.use((config) => {
-  config.data = qs.stringify(config.data)
+  config.headers['Authorization'] = localStorage.getItem('jt') || ''
+  let data = config.data
+  data && (config.data['query'] = data['query'].trim().replace(/\s/g, ''))
+  console.log('config.data: ', config.data)
+  config.data = qs.stringify(data)
   return config
 }, function (error) {
   return Promise.reject(error)
 })
 axios.interceptors.response.use(function (response) {
-  console.log(response)
-  return response
+  console.log(response.data)
+  return response.data
 }, function (error) {
   return Promise.reject(error)
 })

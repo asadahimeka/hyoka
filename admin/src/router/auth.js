@@ -1,14 +1,14 @@
-import http from '../api/http'
+import api from '../api'
 
 const auth = {
-  loggedIn() {
-    // http.post('/api/sso/login-info').then((userMsg) => {
-    //   if (userMsg.data.status == 1) {
-
-    //   } else {
-
-    //   }
-    // })
+  async loggedIn() {
+    try {
+      let res = await api.isLogin()
+      return res.data.me && res.data.me.role == 'admin'
+    } catch (error) {
+      console.error(error)
+      return false
+    }
   }
 }
 

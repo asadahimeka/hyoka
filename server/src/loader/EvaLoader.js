@@ -1,7 +1,6 @@
 import DataLoader from 'dataloader'
 import EvaModel from '../model/Eva'
-import connectionFromMongoCursor from './ConnectionFromMongoCursor'
-import mongooseLoader from './mongooseLoader'
+import { connectionFromMongoCursor, mongooseLoader } from '@entria/graphql-mongoose-loader'
 
 export default class Eva {
   constructor(data) {

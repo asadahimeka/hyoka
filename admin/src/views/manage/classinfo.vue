@@ -3,7 +3,7 @@
     <mu-row gutter>
       <mu-col width="100" tablet="100" desktop="100">
         <mu-sub-header style="margin-left:-10px;">
-          <h1>Student</h1>
+          <h1>Class</h1>
         </mu-sub-header>
       </mu-col>
     </mu-row>
@@ -16,10 +16,7 @@
               <mu-tr>
                 <mu-th>No</mu-th>
                 <mu-th>Name</mu-th>
-                <mu-th>Sex</mu-th>
-                <mu-th>Class</mu-th>
-                <mu-th>Department,</mu-th>
-                <mu-th>Major</mu-th>
+                <mu-th>Courses</mu-th>
                 <mu-th class="tac" style="color:green;">Done</mu-th>
                 <mu-th class="tac" style="color:red;">Cancel</mu-th>
               </mu-tr>
@@ -34,16 +31,7 @@
                   <mu-text-field v-model="evnameA" fullWidth />
                 </mu-td>
                 <mu-td>
-                  <mu-text-field v-model="s.sex" fullWidth />
-                </mu-td>
-                <mu-td>
-                  <mu-text-field v-model="s.kurasu" fullWidth />
-                </mu-td>
-                <mu-td>
-                  <mu-text-field v-model="s.department" fullWidth />
-                </mu-td>
-                <mu-td>
-                  <mu-text-field v-model="s.major" fullWidth />
+                  <mu-text-field v-model="courseA" fullWidth />
                 </mu-td>
                 <mu-td class="tac">
                   <mu-icon-button style="color:green;" icon="done" @click="doneAdd()" />
@@ -84,10 +72,7 @@
             <mu-tr>
               <mu-th>No</mu-th>
               <mu-th>Name</mu-th>
-              <mu-th>Sex</mu-th>
-              <mu-th>Class</mu-th>
-              <mu-th>Department,</mu-th>
-              <mu-th>Major</mu-th>
+              <mu-th>Courses</mu-th>
               <mu-th class="tac" style="color:green;">Edit</mu-th>
               <mu-th class="tac" style="color:red;">{{delText}}</mu-th>
             </mu-tr>
@@ -96,12 +81,9 @@
 
             <transition name="td1" mode="out-in">
               <mu-tr v-show="editing!=index">
-                <mu-td>{{item.node.sno}}</mu-td>
+                <mu-td>{{item.node.kno}}</mu-td>
                 <mu-td>{{item.node.name}}</mu-td>
-                <mu-td>{{item.node.sex}}</mu-td>
-                <mu-td>{{item.node.kurasu}}</mu-td>
-                <mu-td>{{item.node.department}}</mu-td>
-                <mu-td>{{item.node.major}}</mu-td>
+                <mu-td>{{item.node.courses.join(',')}}</mu-td>
                 <mu-td class="tac">
                   <mu-icon-button icon="mode_edit" @click="edit(index)" />
                 </mu-td>
@@ -114,22 +96,13 @@
             <transition name="td1" mode="out-in">
               <mu-tr v-show="editing==index">
                 <mu-td>
-                  {{item.node.sno}}
+                  {{item.node.kno}}
                 </mu-td>
                 <mu-td>
                   <mu-text-field v-model="evnameE" fullWidth/>
                 </mu-td>
                 <mu-td>
-                  <mu-text-field v-model="s.sex" fullWidth />
-                </mu-td>
-                <mu-td>
-                  <mu-text-field v-model="s.kurasu" fullWidth />
-                </mu-td>
-                <mu-td>
-                  <mu-text-field v-model="s.department" fullWidth />
-                </mu-td>
-                <mu-td>
-                  <mu-text-field v-model="s.major" fullWidth />
+                  <mu-text-field v-model="courseE" fullWidth/>
                 </mu-td>
                 <mu-td class="tac">
                   <mu-icon-button style="color:green;" icon="done" @click="doneEdit(index,item.node.id)" />
@@ -206,7 +179,8 @@ export default {
       evnameA: '',
       evnoE: '',
       evnameE: '',
-      s: {}
+      courseA: '',
+      courseE: ''
     }
   },
   computed: {
@@ -221,8 +195,8 @@ export default {
     async getIndexs() {
       try {
         this.$loading()
-        let res = await this.$api.getStudents()
-        this.evas = res.data.students.edges
+        let res = await this.$api.getClassinfo()
+        this.evas = res.data.kurasus.edges
         this.loading = false
         this.$loading('close')
       } catch (err) {
@@ -235,18 +209,24 @@ export default {
       this.adding = !this.adding
     },
     async doneAdd() {
-      // if (!this.evnoA || !this.evnameA) {
-      //   this.$popup('请输入内容')
-      //   return
-      // }
+      if (!this.evnoA || !this.evnameA || !this.courseA) {
+        this.$popup('请输入内容')
+        return
+      }
       try {
-        this.s.sno = this.evnoA
-        this.s.name = this.evnameA
-        await this.$api.addStudent(this.s)
-        this.getIndexs()
+        let res = await this.$api.addClassinfo(this.evnoA, this.evnameA, this.courseA)
+        let { id } = res.data.KurasuAdd.kurasuEdge.node
+        this.evas.push({
+          node: {
+            id,
+            kno: this.evnoA,
+            name: this.evnameA,
+            courses: this.courseA
+          }
+        })
         this.evnoA = ''
         this.evnameA = ''
-        this.s = {}
+        this.courseA = ''
         this.$popup('添加成功')
       } catch (err) {
         console.error(err)
@@ -256,12 +236,9 @@ export default {
       this.adding = false
     },
     edit(index) {
-      this.evnoE = this.evas[index].node.sno
+      this.evnoE = this.evas[index].node.kno
       this.evnameE = this.evas[index].node.name
-      this.s.sex = this.evas[index].node.sex
-      this.s.kurasu = this.evas[index].node.kurasu
-      this.s.department = this.evas[index].node.department
-      this.s.major = this.evas[index].node.major
+      this.courseE = this.evas[index].node.courses.join(',')
       if (this.docked) {
         if (~this.editing) return
         this.editing = index
@@ -282,10 +259,12 @@ export default {
       try {
         this.evas[index].node = {
           ...this.evas[index].node,
-          ...this.s
+          kno: this.evnoE,
+          name: this.evnameE,
+          courses: this.courseE
         }
-        let res = await this.$api.editStudent(id, this.evas[index].node)
-        let { error } = res.data.StudentEdit
+        let res = await this.$api.editClassinfo(id, this.evas[index].node)
+        let { error } = res.data.KurasuEdit
         if (error) {
           this.$popup('编辑出错')
           return
@@ -306,7 +285,7 @@ export default {
         text: '确定要删除吗？',
         submitFn: async () => {
           try {
-            let res = await this.$api.del(id, 'student')
+            let res = await this.$api.del(id, 'kurasu')
             if (res.data.deleteMutation.error) {
               this.$popup('删除出错')
               return

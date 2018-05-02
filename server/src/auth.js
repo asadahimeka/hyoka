@@ -6,7 +6,7 @@ export async function getUser(token) {
   if (!token) return { user: null }
 
   try {
-    const decodedToken = jwt.verify(token.substring(4), jwtSecret)
+    const decodedToken = jwt.verify(token, jwtSecret)
 
     const user = await User.findOne({ _id: decodedToken.id })
 
@@ -19,5 +19,5 @@ export async function getUser(token) {
 }
 
 export function generateToken(user) {
-  return `JWT-${jwt.sign({ id: user._id }, jwtSecret)}`
+  return `${jwt.sign({ id: user._id }, jwtSecret)}`
 }

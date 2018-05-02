@@ -51,9 +51,11 @@ export default mutationWithClientMutationId({
     const kurasu = await new Kurasu({
       name,
       kno,
-      courses,
       comment
-    }).save()
+    })
+
+    kurasu.courses = courses.split(',')
+    kurasu.save()
 
     // TODO: mutation logic
 

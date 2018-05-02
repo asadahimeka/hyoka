@@ -23,6 +23,16 @@ export default new GraphQLObjectType({
       description: '',
       resolve: obj => obj.sno
     },
+    sname: {
+      type: GraphQLString,
+      description: '',
+      resolve: obj => obj.sname
+    },
+    cname: {
+      type: GraphQLString,
+      description: '',
+      resolve: obj => obj.cname
+    },
     evas: {
       type: new GraphQLList(GraphQLString),
       description: '',

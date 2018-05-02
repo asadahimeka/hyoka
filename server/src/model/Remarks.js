@@ -9,6 +9,8 @@ const Schema = new mongoose.Schema({
     type: String,
     required: true
   },
+  cname: String,
+  sname: String,
   evas: {
     type: [String],
     required: true

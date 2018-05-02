@@ -1,7 +1,6 @@
 import DataLoader from 'dataloader'
 import KurasuModel from '../model/Kurasu'
-import connectionFromMongoCursor from './ConnectionFromMongoCursor'
-import mongooseLoader from './mongooseLoader'
+import { connectionFromMongoCursor, mongooseLoader } from '@entria/graphql-mongoose-loader'
 
 export default class Kurasu {
   constructor(data) {

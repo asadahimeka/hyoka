@@ -43,7 +43,6 @@
     <footer v-if="where=='index'" class="info">
       <p>DATA IS STORED LOCALLY</p>
       <p>Double-click to edit a todo</p>
-      {{where}}
       <p>Written by
         <a href="http://evanyou.me">Evan You,</a>
         Part of
