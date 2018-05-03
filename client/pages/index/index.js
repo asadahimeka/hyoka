@@ -1,28 +1,39 @@
 // index.js
-
+var app = getApp()
 Page({
   data: {
-    username: 'Asdf'
+    username: '',
+    isStu: '',
+    isTeac: ''
   },
   onLoad(options) {
-    wx.request({
-      header:{
-"Authorization":"JWT-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZTdiNTJlN2NiZTRjMjM1Y2Y4NzZjNSIsImlhdCI6MTUyNTE5ODQ1MX0.q_KOlUMctKq8aWA6_t2oDsH0lympN-vgj0FpaAp1CJA"
-      },
-      url: 'http://localhost:5000/graphql',
-      method:'post',
-      data:{
-        query:`{
-  me{
-    id
-    name
-  }
-}`
+    wx.$api.me().then(res => {
+      if (res.data.me) {
+        this.setData({
+          username: res.data.me.name
+        })
+        if (app.gb.role == 'stu') {
+          wx.$api.stuNo(res.data.me.name).then(res => {
+            app.gb.user = res.data.studentno
+          })
+        } else {
+          wx.$api.teacNo(res.data.me.name).then(res => {
+            app.gb.user = res.data.teacherno
+          })
+        }
       }
+    })
+    this.setData({
+      isStu: app.gb.role == 'stu',
+      isTeac: app.gb.role == 'teac'
     })
   },
   onShow() {
-    console.log(1111)
+    if (!app.gb.isLogin) {
+      wx.redirectTo({
+        url: '../login_stu/login_stu'
+      })
+    }
   },
   onShareAppMessage() {
     return {

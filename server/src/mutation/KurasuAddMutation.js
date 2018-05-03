@@ -55,7 +55,7 @@ export default mutationWithClientMutationId({
     })
 
     kurasu.courses = courses.split(',')
-    kurasu.save()
+    await kurasu.save()
 
     // TODO: mutation logic
 

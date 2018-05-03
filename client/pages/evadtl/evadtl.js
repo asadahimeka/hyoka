@@ -1,66 +1,64 @@
-// pages/evadtl/evadtl.js
+var app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-  
+    course: {},
+    evaindexs: [],
+    marks: [1, 2, 3, 4, 5],
+    evas: [],
+    comment: ''
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+  onLoad(options) {
+    wx.$api.getEvaIndex().then(res => {
+      this.setData({
+        course: options,
+        evaindexs: res.data.evas.edges
+      })
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  radioChange(e) {
+    let item = e.detail.value.split(';')
+    this.setData({
+      [`evas[${item[0]}]`]: item[1]
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
+  submit: function() {
+    let evas = this.data.evas.join()
+    console.log('evas: ', evas)
+    if (!evas.length || /^,|,,/.test(evas)) {
+      wx.showToast({
+        title: '请完整填写',
+        icon: 'none'
+      })
+      return
+    }
+    let remark = this.data.evas.reduce((a, b) => +a + (+b), 0)
+    let data = {
+      sno: app.gb.user.sno,
+      cno: this.data.course.cno,
+      comment: this.data.comment,
+      remark,
+      evas
+    }
+    console.log('data: ', data)
+    wx.$api.addRemark(data).then(res => {
+      if (res.data.RemarksAdd) {
+        wx.$api.stuNo(app.gb.user.sno).then(res => {
+          app.gb.user = res.data.studentno
+        })
+        wx.redirectTo({
+          url: '../msg_suc/suc'
+        })
+      } else {
+        wx.redirectTo({
+          url: '../msg_fail/fail'
+        })
+      }
+    })
   },
+  onShow() {
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
   },
+  onShareAppMessage() {
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
   }
 })

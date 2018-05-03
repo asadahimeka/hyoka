@@ -11,7 +11,7 @@
       <mu-col width="100" tablet="100" desktop="100">
         <mu-raised-button @click="toggleAdd()" label="Add" icon="add_circle" secondary/>
         <transition name="slideDown" mode="out-in">
-          <mu-table v-show="docked&&adding" fixedHeader :showCheckbox="false" :selectable="false" ref="table">
+          <mu-table v-show="adding" fixedHeader :showCheckbox="false" :selectable="false" ref="table">
             <mu-thead>
               <mu-tr>
                 <mu-th>No</mu-th>
@@ -214,16 +214,8 @@ export default {
         return
       }
       try {
-        let res = await this.$api.addCourse(this.evnoA, this.evnameA, this.teacherA)
-        let { id } = res.data.CourseAdd.courseEdge.node
-        this.evas.push({
-          node: {
-            id,
-            tno: this.evnoA,
-            name: this.evnameA,
-            teacher: this.teacherA
-          }
-        })
+        await this.$api.addCourse(this.evnoA, this.evnameA, this.teacherA)
+        this.getIndexs()
         this.evnoA = ''
         this.evnameA = ''
         this.teacherA = ''
@@ -238,14 +230,14 @@ export default {
     edit(index) {
       this.evnameE = this.evas[index].node.name
       this.teacherE = this.evas[index].node.teacher
-      if (this.docked) {
+      // if (this.docked) {
         if (~this.editing) return
         this.editing = index
         this.delText = 'Cancel'
-      } else {
-        this.editing = this.editIndex
-        this.closeBottomSheet()
-      }
+      // } else {
+      //   this.editing = this.editIndex
+      //   this.closeBottomSheet()
+      // }
     },
     async doneEdit(index, id) {
       this.editing = -1

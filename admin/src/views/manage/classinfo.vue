@@ -11,7 +11,7 @@
       <mu-col width="100" tablet="100" desktop="100">
         <mu-raised-button @click="toggleAdd()" label="Add" icon="add_circle" secondary/>
         <transition name="slideDown" mode="out-in">
-          <mu-table v-show="docked&&adding" fixedHeader :showCheckbox="false" :selectable="false" ref="table">
+          <mu-table v-show="adding" fixedHeader :showCheckbox="false" :selectable="false" ref="table">
             <mu-thead>
               <mu-tr>
                 <mu-th>No</mu-th>
@@ -214,16 +214,8 @@ export default {
         return
       }
       try {
-        let res = await this.$api.addClassinfo(this.evnoA, this.evnameA, this.courseA)
-        let { id } = res.data.KurasuAdd.kurasuEdge.node
-        this.evas.push({
-          node: {
-            id,
-            kno: this.evnoA,
-            name: this.evnameA,
-            courses: this.courseA
-          }
-        })
+        await this.$api.addClassinfo(this.evnoA, this.evnameA, this.courseA)
+        this.getIndexs()
         this.evnoA = ''
         this.evnameA = ''
         this.courseA = ''
@@ -239,14 +231,14 @@ export default {
       this.evnoE = this.evas[index].node.kno
       this.evnameE = this.evas[index].node.name
       this.courseE = this.evas[index].node.courses.join(',')
-      if (this.docked) {
+      // if (this.docked) {
         if (~this.editing) return
         this.editing = index
         this.delText = 'Cancel'
-      } else {
-        this.editing = this.editIndex
-        this.closeBottomSheet()
-      }
+      // } else {
+      //   this.editing = this.editIndex
+      //   this.closeBottomSheet()
+      // }
     },
     async doneEdit(index, id) {
       this.editing = -1

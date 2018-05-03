@@ -79,7 +79,6 @@ export default mutationWithClientMutationId({
     Models[who][1].clearCache(context, model._id)
 
     return {
-      id: model._id,
       error: null
     }
   },

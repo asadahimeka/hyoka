@@ -1,9 +1,14 @@
 import axios from 'axios'
 import qs from 'qs'
 
-axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-// axios.defaults.baseURL = ''
-axios.interceptors.request.use((config) => {
+const instance = axios.create({
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Authorization': localStorage.getItem('jt') || ''
+  }
+})
+
+instance.interceptors.request.use((config) => {
   config.headers['Authorization'] = localStorage.getItem('jt') || ''
   let data = config.data
   data && (config.data['query'] = data['query'].trim().replace(/\s/g, ''))
@@ -13,11 +18,11 @@ axios.interceptors.request.use((config) => {
 }, function (error) {
   return Promise.reject(error)
 })
-axios.interceptors.response.use(function (response) {
+instance.interceptors.response.use(function (response) {
   console.log(response.data)
   return response.data
 }, function (error) {
   return Promise.reject(error)
 })
 
-export default axios
+export default instance

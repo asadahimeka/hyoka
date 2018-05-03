@@ -1,7 +1,8 @@
 /**index.wxss**/
 
 .index{
-  background: #fff;
+  position: relative;
+  /* background: #fff; */
 }
 .hi{
   width: 80rpx;
@@ -14,7 +15,14 @@
   font-size: 40rpx;
   color: #000;
 }
-
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
 .navitem {
   position: relative;
   display: flex;

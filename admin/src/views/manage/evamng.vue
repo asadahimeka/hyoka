@@ -60,7 +60,7 @@
 
         <h3 v-if="!loading&&!evas.length" style="margin-top: 10vw;text-align:center;">暂无信息</h3>
 
-        <mu-table v-if="evas.length" class="mng__table" fixedHeader :showCheckbox="false" :selectable="false" ref="table">
+        <mu-table v-if="docked&&evas.length" class="mng__table" fixedHeader :showCheckbox="false" :selectable="false" ref="table">
           <mu-thead>
             <mu-tr>
               <mu-th>No</mu-th>
@@ -241,7 +241,7 @@ export default {
       }
       try {
         let res = await this.$api.editEvaIndex(id, this.evnoE, this.evnameE)
-        let { eva, error } = res.data.EvaEdit
+        let { error } = res.data.EvaEdit
         if (error) {
           this.$popup('编辑出错')
           return

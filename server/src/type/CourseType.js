@@ -27,6 +27,16 @@ export default new GraphQLObjectType({
       description: '',
       resolve: obj => obj.teacher
     },
+    teacherno: {
+      type: GraphQLString,
+      description: '',
+      resolve: obj => obj.teacherno
+    },
+    teacherdprt: {
+      type: GraphQLString,
+      description: '',
+      resolve: obj => obj.teacherdprt
+    },
     isEva: {
       type: GraphQLBoolean,
       description: '',

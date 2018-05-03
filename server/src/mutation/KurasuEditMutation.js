@@ -59,6 +59,7 @@ export default mutationWithClientMutationId({
     }
 
     // Edit record
+    args.courses = args.courses.split(',')
     await kurasu.update(args)
 
     // TODO: mutation logic

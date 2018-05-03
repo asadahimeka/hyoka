@@ -11,7 +11,7 @@
       <mu-col width="100" tablet="100" desktop="100">
         <mu-raised-button @click="toggleAdd()" label="Add" icon="add_circle" secondary/>
         <transition name="slideDown" mode="out-in">
-          <mu-table v-show="docked&&adding" fixedHeader :showCheckbox="false" :selectable="false" ref="table">
+          <mu-table v-show="adding" fixedHeader :showCheckbox="false" :selectable="false" ref="table">
             <mu-thead>
               <mu-tr>
                 <mu-th>No</mu-th>
@@ -262,14 +262,14 @@ export default {
       this.s.kurasu = this.evas[index].node.kurasu
       this.s.department = this.evas[index].node.department
       this.s.major = this.evas[index].node.major
-      if (this.docked) {
+      // if (this.docked) {
         if (~this.editing) return
         this.editing = index
         this.delText = 'Cancel'
-      } else {
-        this.editing = this.editIndex
-        this.closeBottomSheet()
-      }
+      // } else {
+      //   this.editing = this.editIndex
+      //   this.closeBottomSheet()
+      // }
     },
     async doneEdit(index, id) {
       this.editing = -1

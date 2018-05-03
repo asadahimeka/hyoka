@@ -1,13 +1,20 @@
+import md5 from '../../utils/spark-md5'
+var app = getApp()
 Page({
   data: {
     username: '',
-    pwd: ''
+    pwd: '',
+    wc: Math.random() > 0.5,
+    loading: false
   },
   onLoad(options) {
 
   },
   onShow() {
-    console.log(2222)
+
+  },
+  onUnload(options) {
+
   },
   unameInput(e) {
     this.setData({
@@ -19,18 +26,46 @@ Page({
       pwd: e.detail.value
     })
   },
+  login() {
+    this.setData({
+      loading: true
+    })
+    let pwd = md5.hash(this.data.pwd)
+    wx.$api.login(this.data.username, pwd).then(res => {
+      if (res.data.Login.error) {
+        wx.showToast({
+          title: '登录失败',
+          icon: 'none'
+        })
+        this.setData({
+          loading: false
+        })
+        return
+      }
+      wx.showToast({
+        title: '登录成功'
+      })
+      wx.setStorageSync('jt', res.data.Login.token)
+      app.gb.isLogin = true
+      app.gb.role = res.data.Login.role
+      wx.redirectTo({
+        url: '../index/index'
+      })
+    }).catch(err => {
+      console.error(err)
+      this.setData({
+        loading: false
+      })
+    })
+  },
   selRole() {
     wx.showActionSheet({
-      itemList: ['教师', '管理员'],
+      itemList: ['管理员'],
       itemColor: '#101010',
       success(res) {
         if (res.tapIndex === 0) {
           wx.navigateTo({
-            url: '../login_tch/login_tch'
-          })
-        } else if (res.tapIndex === 1) {
-          wx.navigateTo({
-            url: '../webview/webview?url=https://www.baidu.com'
+            url: '../webview/webview?url=http://localhost:8080'
           })
         }
       }

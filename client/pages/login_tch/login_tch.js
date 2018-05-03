@@ -28,7 +28,7 @@ Page({
             })
           } else if (res.tapIndex === 1) {
             wx.navigateTo({
-              url: '../webview/webview?url=https://www.baidu.com'
+              url: '../webview/webview?url=http://localhost:8080'
             })
           }
         }

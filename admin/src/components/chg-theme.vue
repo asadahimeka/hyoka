@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import http from '../api/http'
+import axios from 'axios'
 import { mapState } from 'vuex'
 export const theme = 'light'
 export const themes = {
@@ -17,7 +17,7 @@ export const themes = {
   'teal': ['TEAL', 'static/css/theme-teal.css', '#009688']
 }
 export async function changeTheme(theme, ctx = this) {
-  let styles = await http.get(themes[theme][1])
+  let styles = await axios.get(themes[theme][1])
   ctx.theme = theme
   getThemeStyle().innerHTML = styles.data || ''
 }

@@ -4,13 +4,15 @@
   </view>
   <view class="login-panel">
     <view class="avatar">
-      <image class="avatar-img" src="../../assets/img/avatar.png"></image>
+      <image wx:if="{{wc}}" class="avatar-img" src="../../assets/img/avatar.png"></image>
+      <image wx:if="{{!wc}}" class="avatar-img" src="../../assets/img/avatar2.png"></image>
     </view>
     <input class="login-input" placeholder="用户名" bindinput="unameInput" bindblur=""/>
     <input class="login-input" password placeholder="密码" bindinput="pwdInput" bindblur=""/>
-    <button class="login-btn" loading="{{false}}" hover-class="button-hover">登录</button>
+    <button wx:if="{{wc}}" class="login-btn" bind:tap="login" loading="{{loading}}" hover-class="button-hover">登录</button>
+    <button wx:if="{{!wc}}" class="login-btn2" bind:tap="login" loading="{{loading}}" hover-class="button-hover">登录</button>
   </view>
   <view bind:tap="selRole" class="login-text login-bottom">
-    <text>不是学生?点击进入其他登录入口</text>
+    <text>其他</text>
   </view>
 </view>

@@ -6,6 +6,7 @@
 
 .cells {
   padding-bottom: 30rpx;
+  margin-bottom: 30rpx;
 }
 
 .label {

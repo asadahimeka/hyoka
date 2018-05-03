@@ -4,48 +4,48 @@
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell">
       <view class="weui-cell__bd">教师姓名</view>
-      <view class="weui-cell__ft">零售价</view>
+      <view class="weui-cell__ft">{{user.name}}</view>
     </view>
     <view class="weui-cell">
       <view class="weui-cell__bd">教师号</view>
-      <view class="weui-cell__ft">T001</view>
+      <view class="weui-cell__ft">{{user.tno}}</view>
     </view>
     <view class="weui-cell">
       <view class="weui-cell__bd">所在院系</view>
-      <view class="weui-cell__ft text-overflow">数据科学与软件工程学院</view>
+      <view class="weui-cell__ft text-overflow">{{user.department}}</view>
     </view>
     <view class="weui-cell">
-      <view class="weui-cell__bd">总评分(满分5)</view>
-      <view class="weui-cell__ft">5</view>
+      <view class="weui-cell__bd">总评分(满分{{michi}})</view>
+      <view class="weui-cell__ft">{{totalmark}}</view>
     </view>
   </view>
-  <block>
+  <block wx:for="{{remarks}}" wx:key="{{item[0].id}}">
     <view class="weui-cells__title">课程详情</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd">课程</view>
-        <view class="weui-cell__ft">形式与政策</view>
+        <view class="weui-cell__ft">{{item[0].cname}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__bd">评价次数</view>
-        <view class="weui-cell__ft">40</view>
+        <view class="weui-cell__ft">{{item.length}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__bd">总分</view>
-        <view class="weui-cell__ft">5</view>
+        <view class="weui-cell__ft">{{item[0].total}}</view>
       </view>
-      <view class="weui-panel weui-panel_access">
+      <!-- <view class="weui-panel weui-panel_access">
         <view class="weui-panel__hd">评价详情</view>
         <view class="weui-panel__bd">
           <view class="weui-media-box weui-media-box_text">
             <view class="weui-media-box__title weui-media-box__title_in-text evaitem">
-              1.指标指标指标指标指标指标指标指标
+              1.指标指标
             </view>
             <view class="weui-media-box__desc">总分：5</view>
           </view>
           <view class="weui-media-box weui-media-box_text">
             <view class="weui-media-box__title weui-media-box__title_in-text evaitem">
-              2.指标指标指标指标指标指标指标指标指标指标指标指标
+              2.指标指标
             </view>
             <view class="weui-media-box__desc">总分：5</view>
           </view>
@@ -55,7 +55,7 @@
             <view class="weui-cell__bd">查看更多</view>
           </view>
         </view>
-      </view>
+      </view> -->
     </view>
   </block>
   <view class="bottom"></view>

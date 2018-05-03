@@ -25,8 +25,8 @@ export default mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload: async ({ name, email, password, role }) => {
-    let useremail = await User.findOne({ email: email && email.toLowerCase() })
-    let username = await User.findOne({ name: name.toLowerCase() })
+    let useremail = await User.findOne({ email })
+    let username = await User.findOne({ name })
 
     if (useremail) {
       return {

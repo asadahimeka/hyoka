@@ -1,6 +1,7 @@
 <template>
   <div class="header" :class="{'nav-hide':navHide}">
     <mu-appbar :title="cTitle">
+      <mu-icon-button v-if="inwx" icon="close" @click="backToWx()" slot="left" />
       <mu-icon-button icon="menu" slot="left" @click="toggle()" />
       <mu-icon-button v-if="docked" icon="refresh" slot="left" @click="reload" tooltip="Refresh" touch/>
       <mu-icon-button icon="loyalty" slot="right" @click="toggleTodo" ref="todo" tooltip="TODO" touch/>
@@ -35,7 +36,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['docked', 'navHide', 'drOpen', 'cTitle'])
+    ...mapState(['docked', 'navHide', 'drOpen', 'cTitle']),
+    inwx() {
+      return window.__wxjs_environment === 'miniprogram'
+    }
   },
   components: {
     Todo,
@@ -45,6 +49,11 @@ export default {
     this.trigger = this.$refs['todo'].$el
   },
   methods: {
+    backToWx() {
+      if (window.wx) {
+        window.wx.miniProgram.navigateBack()
+      }
+    },
     toggle() {
       this.$store.commit('DROPEN', !this.drOpen)
       this.$store.commit('NAVHIDE', !this.navHide)

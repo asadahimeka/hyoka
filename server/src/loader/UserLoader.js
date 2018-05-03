@@ -33,7 +33,7 @@ export const load = async (context, id) => {
   } catch (err) {
     return null
   }
-  return canSee(context.user, data) ? new User(data, context) : null
+  return new User(data, context)
 }
 
 export const clearCache = ({ dataloaders }, id) => {

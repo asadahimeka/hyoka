@@ -71,11 +71,7 @@ export default {
   },
   created() {
     if (localStorage.getItem('jt')) {
-      this.$popup({
-        msg: '已登录',
-        type: 'warn'
-      })
-      this.$router.push('/')
+      this.$router.replace('/')
     }
   },
   methods: {

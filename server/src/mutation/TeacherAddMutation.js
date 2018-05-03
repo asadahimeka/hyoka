@@ -15,6 +15,8 @@ import TeacherConnection from '../connection/TeacherConnection'
 import UserType from '../type/UserType'
 import User from '../model/User'
 
+import md5 from 'md5'
+
 export default mutationWithClientMutationId({
   name: 'TeacherAdd',
   inputFields: {
@@ -67,8 +69,8 @@ export default mutationWithClientMutationId({
     }).save()
 
     const teac = new User({
-      tno,
-      password: tno,
+      name: tno,
+      password: md5(tno),
       role: 'teac'
     })
     await teac.save()

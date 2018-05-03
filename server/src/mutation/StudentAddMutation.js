@@ -15,6 +15,8 @@ import StudentConnection from '../connection/StudentConnection'
 import UserType from '../type/UserType'
 import User from '../model/User'
 
+import md5 from 'md5'
+
 export default mutationWithClientMutationId({
   name: 'StudentAdd',
   inputFields: {
@@ -76,9 +78,10 @@ export default mutationWithClientMutationId({
       comment
     }).save()
 
+    console.log('md5(sno): ', md5(sno))
     const stu = new User({
-      sno,
-      password: sno,
+      name: sno,
+      password: md5(sno),
       role: 'stu'
     })
     await stu.save()

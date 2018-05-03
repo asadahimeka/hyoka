@@ -11,7 +11,7 @@
       <mu-col width="100" tablet="100" desktop="100">
         <mu-raised-button @click="toggleAdd()" label="Add" icon="add_circle" secondary/>
         <transition name="slideDown" mode="out-in">
-          <mu-table v-show="docked&&adding" fixedHeader :showCheckbox="false" :selectable="false" ref="table">
+          <mu-table v-show="adding" fixedHeader :showCheckbox="false" :selectable="false" ref="table">
             <mu-thead>
               <mu-tr>
                 <mu-th>No</mu-th>
@@ -242,14 +242,14 @@ export default {
       this.evnameE = this.evas[index].node.name
       this.s.sex = this.evas[index].node.sex
       this.s.department = this.evas[index].node.department
-      if (this.docked) {
+      // if (this.docked) {
         if (~this.editing) return
         this.editing = index
         this.delText = 'Cancel'
-      } else {
-        this.editing = this.editIndex
-        this.closeBottomSheet()
-      }
+      // } else {
+      //   this.editing = this.editIndex
+      //   this.closeBottomSheet()
+      // }
     },
     async doneEdit(index, id) {
       this.editing = -1
@@ -262,7 +262,8 @@ export default {
       try {
         this.evas[index].node = {
           ...this.evas[index].node,
-          ...this.s
+          ...this.s,
+          name: this.evnameE
         }
         let res = await this.$api.editTeacher(id, this.evas[index].node)
         let { error } = res.data.TeacherEdit

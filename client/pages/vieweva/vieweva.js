@@ -1,66 +1,43 @@
-// pages/vieweva/vieweva.js
+var app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-  
+    user: {},
+    remarks: [],
+    totalmark: '',
+    itemMichi: '',
+    michi: ''
   },
+  onLoad() {
+    wx
+      .$api
+      .getRemarks(app.gb.user.name)
+      .then(res => {
+        let view = res.data.viewremark
+        if (view.length) {
+          let totalmark = 0
+          let views = view.map(e => {
+            e[0].total = 0
+            e.map(e1 => {
+              e[0].total += e1.remark
+            })
+            totalmark += e[0].total
+            return e
+          })
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+          let evanum = view[0][0].evas.length
+          let michi = 5 * evanum * view[0].length
+          totalmark /= views.length
+
+          this.setData({
+            user: app.gb.user,
+            remarks: views,
+            michi,
+            totalmark
+          })
+        }
+      })
   },
+  onShow() {
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
   }
 })

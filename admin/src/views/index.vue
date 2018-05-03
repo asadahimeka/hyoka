@@ -55,6 +55,11 @@ export default {
   created() {
     this.resizeFn()
     window.addEventListener('resize', this.resizeFn)
+    if (~window.navigator.userAgent.indexOf('MicroMessenger')) {
+      let s = document.createElement('script')
+      s.src = 'https://res.wx.qq.com/open/js/jweixin-1.3.2.js'
+      document.body.appendChild(s)
+    }
   },
   methods: {
     resizeFn() {
@@ -232,12 +237,12 @@ export default {
   .content {
     padding-left: 0;
   }
-  .mng__table {
+  /* .mng__table {
     display: block;
   }
   .mng__list {
     display: none;
-  }
+  } */
 }
 
 @media (min-width: 480px) {
@@ -271,11 +276,11 @@ export default {
   .mu-table {
     min-width: 700px;
   }
-  .mng__table {
+  /* .mng__table {
     display: none;
   }
   .mng__list {
     display: block;
-  }
+  } */
 }
 </style>

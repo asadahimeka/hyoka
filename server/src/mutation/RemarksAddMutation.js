@@ -52,7 +52,7 @@ export default mutationWithClientMutationId({
     } = args
 
     const student = await Student.findOne({ sno })
-    const course = await Student.findOne({ cno })
+    const course = await Course.findOne({ cno })
 
     if (!student) {
       throw new Error('Invalid studentId')
@@ -65,6 +65,7 @@ export default mutationWithClientMutationId({
     // Create new record
     const _args = {
       ...args,
+      evas: args.evas[0].split(','),
       cname: course.name,
       sname: student.name
     }
@@ -76,6 +77,7 @@ export default mutationWithClientMutationId({
     // TODO: mutation logic
 
     StudentLoader.clearCache(context, student._id)
+    CourseLoader.clearCache(context, course._id)
 
     return {
       id: remarks._id,

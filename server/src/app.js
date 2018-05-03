@@ -57,7 +57,7 @@ const graphqlSettingsPerReq = async (req) => {
 const graphqlServer = convert(graphqlHttp(graphqlSettingsPerReq))
 
 // graphql batch query route
-router.all('/graphql/batch', bodyParser(), graphqlBatchHttpWrapper(graphqlServer))
+// router.all('/graphql/batch', bodyParser(), graphqlBatchHttpWrapper(graphqlServer))
 
 // graphql standard route
 router.all('/graphql', graphqlServer)

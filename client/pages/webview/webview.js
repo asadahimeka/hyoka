@@ -6,8 +6,7 @@ Page({
   onLoad(options) {
     wx.showLoading()
     setTimeout(wx.hideLoading, 2000)
-    let url = options.url
-    this.setData({url})
+    this.setData({url: options.url})
   },
   onShareAppMessage(options) {
     return {

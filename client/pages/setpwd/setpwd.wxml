@@ -1,6 +1,6 @@
 <!-- pages/setpwd/setpwd.wxml -->
 <view class="container setpwd">
-  <view class="weui-toptips weui-toptips_warn" wx:if="{{0}}">错误提示</view>
+  <!-- <view class="weui-toptips weui-toptips_warn" wx:if="{{0}}">错误提示</view> -->
   <view class="weui-cells__title">修改密码</view>
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_input">
@@ -8,7 +8,7 @@
         <view class="weui-label">原密码</view>
       </view>
       <view class="weui-cell__bd">
-        <input password class="weui-input" placeholder="请输入原密码" />
+        <input password bindinput="opwdInput" class="weui-input" placeholder="请输入原密码" />
       </view>
     </view>
     <view class="weui-cell weui-cell_input">
@@ -16,10 +16,10 @@
         <view class="weui-label">新密码</view>
       </view>
       <view class="weui-cell__bd">
-        <input password class="weui-input" placeholder="请输入新的新密码" />
+        <input password bindinput="npwdInput" class="weui-input" placeholder="请输入新的新密码" />
       </view>
     </view>
-    <view class="weui-cell weui-cell_input weui-cell_vcode">
+    <!-- <view class="weui-cell weui-cell_input weui-cell_vcode">
       <view class="weui-cell__hd">
         <view class="weui-label">验证码</view>
       </view>
@@ -29,10 +29,10 @@
       <view class="weui-cell__ft">
         <image class="weui-vcode-img" src="../images/vcode.jpg" style="width: 108px"></image>
       </view>
-    </view>
+    </view> -->
   </view>
-  <view class="weui-cells__tips">底部说明文字底部说明文字</view>
+  <!-- <view class="weui-cells__tips">底部说明文字底部说明文字</view> -->
   <view class="weui-btn-area">
-    <button class="weui-btn setpwd-btn" type="primary" bindtap="showTopTips">确定</button>
+    <button bind:tap="submit" class="weui-btn setpwd-btn" type="primary">确定</button>
   </view>
 </view>

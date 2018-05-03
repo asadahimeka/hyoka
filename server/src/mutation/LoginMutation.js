@@ -20,9 +20,9 @@ export default mutationWithClientMutationId({
   mutateAndGetPayload: async ({ email, name, password }) => {
     let user = null
     if (email) {
-      user = await User.findOne({ email: email.toLowerCase() })
+      user = await User.findOne({ email })
     } else {
-      user = await User.findOne({ name: name.toLowerCase() })
+      user = await User.findOne({ name })
     }
 
     if (!user) {
@@ -43,7 +43,8 @@ export default mutationWithClientMutationId({
 
     return {
       token: generateToken(user),
-      error: null
+      error: null,
+      role: user.role
     }
   },
   outputFields: {
@@ -54,6 +55,10 @@ export default mutationWithClientMutationId({
     error: {
       type: GraphQLString,
       resolve: ({ error }) => error
+    },
+    role: {
+      type: GraphQLString,
+      resolve: ({ role }) => role
     }
   }
 })
