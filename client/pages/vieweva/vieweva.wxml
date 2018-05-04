@@ -15,7 +15,7 @@
       <view class="weui-cell__ft text-overflow">{{user.department}}</view>
     </view>
     <view class="weui-cell">
-      <view class="weui-cell__bd">总评分(满分{{michi}})</view>
+      <view class="weui-cell__bd">总评</view>
       <view class="weui-cell__ft">{{totalmark}}</view>
     </view>
   </view>
@@ -31,8 +31,8 @@
         <view class="weui-cell__ft">{{item.length}}</view>
       </view>
       <view class="weui-cell">
-        <view class="weui-cell__bd">总分</view>
-        <view class="weui-cell__ft">{{item[0].total}}</view>
+        <view class="weui-cell__bd">总评</view>
+        <view class="weui-cell__ft">{{item[0].avg}}</view>
       </view>
       <!-- <view class="weui-panel weui-panel_access">
         <view class="weui-panel__hd">评价详情</view>

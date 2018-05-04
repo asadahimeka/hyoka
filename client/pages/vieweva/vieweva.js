@@ -13,6 +13,7 @@ Page({
       .getRemarks(app.gb.user.name)
       .then(res => {
         let view = res.data.viewremark
+        let evanum = view[0][0].evas.length
         if (view.length) {
           let totalmark = 0
           let views = view.map(e => {
@@ -20,18 +21,15 @@ Page({
             e.map(e1 => {
               e[0].total += e1.remark
             })
-            totalmark += e[0].total
+            e[0].avg = e[0].total / evanum / e.length
+            totalmark += e[0].avg
             return e
           })
-
-          let evanum = view[0][0].evas.length
-          let michi = 5 * evanum * view[0].length
           totalmark /= views.length
 
           this.setData({
             user: app.gb.user,
             remarks: views,
-            michi,
             totalmark
           })
         }
