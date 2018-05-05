@@ -133,16 +133,6 @@ export default {
   /* background-color: white; */
 }
 
-.page-loading {
-  position: relative;
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  width: 100% !important;
-  height: 90vh !important;
-  padding-top: 20vh;
-}
-
 .footer {
   width: 100%;
   padding: 20px 0;
@@ -256,7 +246,7 @@ export default {
 }
 .mu-td {
   height: 59px;
-  white-space: normal;
+  white-space: normal !important;
   text-overflow: unset;
   transition: 0.3s;
 }

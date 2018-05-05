@@ -1,0 +1,32 @@
+.mu-appbar {
+  background: #9c27b0;
+}
+.mu-tr:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+.mu-td {
+  height: 59px;
+  white-space: normal !important;
+  text-overflow: unset;
+  transition: 0.3s;
+}
+.mu-dialog {
+  width: 321px;
+}
+.page-loading {
+  position: relative;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  width: 100% !important;
+  height: 90vh !important;
+  padding-top: 20vh;
+}
+@media (max-width: 480px) {
+  .mu-dialog {
+    width: 75%;
+  }
+  .mu-table {
+    min-width: 700px;
+  }
+}

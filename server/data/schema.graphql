@@ -19,6 +19,8 @@ type Course implements Node {
   name: String
   cno: String
   teacher: String
+  teacherno: String
+  teacherdprt: String
   isEva: Boolean
   comment: String
   createdAt: String
@@ -204,7 +206,8 @@ type KurasuEditPayload {
 }
 
 input LoginInput {
-  email: String!
+  email: String
+  name: String!
   password: String!
   clientMutationId: String
 }
@@ -212,12 +215,12 @@ input LoginInput {
 type LoginPayload {
   token: String
   error: String
+  role: String
   clientMutationId: String
 }
 
 type Mutation {
   Login(input: LoginInput!): LoginPayload
-  Register(input: RegisterInput!): RegisterPayload
   ChangePassword(input: ChangePasswordInput!): ChangePasswordPayload
   StudentAdd(input: StudentAddInput!): StudentAddPayload
   CourseAdd(input: CourseAddInput!): CourseAddPayload
@@ -271,6 +274,14 @@ type Query {
   remarkss(after: String, first: Int, before: String, last: Int, search: String): RemarksConnection
   teachers(after: String, first: Int, before: String, last: Int, search: String): TeacherConnection
   kurasus(after: String, first: Int, before: String, last: Int, search: String): KurasuConnection
+  studentno(no: String!): Student
+  courseno(no: String!): Course
+  evano(no: String!): Eva
+  remarksno(no: String!): Remarks
+  teacherno(no: String!): Teacher
+  kurasuno(no: String!): Kurasu
+  kuso(kno: String): [Course]
+  viewremark(teacher: String): [[Remarks]]
 
   """Fetches an object given its ID"""
   node(
@@ -278,19 +289,7 @@ type Query {
     id: ID!
   ): Node
   me: User
-}
-
-input RegisterInput {
-  name: String!
-  email: String!
-  password: String!
-  clientMutationId: String
-}
-
-type RegisterPayload {
-  token: String
-  error: String
-  clientMutationId: String
+  hello(text: String): String
 }
 
 """Represents Remarks"""
@@ -299,6 +298,8 @@ type Remarks implements Node {
   id: ID!
   cno: String
   sno: String
+  sname: String
+  cname: String
   evas: [String]
   remark: Int
   comment: String
@@ -440,6 +441,7 @@ input TeacherAddInput {
 
 type TeacherAddPayload {
   teacherEdge: TeacherEdge
+  viewer: User
   error: String
   clientMutationId: String
 }
@@ -515,12 +517,9 @@ type UserEdge {
 
 input UserEditInput {
   id: ID!
-  name: String
   nickname: String
-  password: String
   email: String
   role: String
-  active: Boolean
   clientMutationId: String
 }
 

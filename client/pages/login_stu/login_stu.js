@@ -27,35 +27,26 @@ Page({
     })
   },
   login() {
-    this.setData({
-      loading: true
-    })
+    if (!this.data.username || !this.data.pwd) {
+      wx.showToast({ title: '请输入用户名和密码', icon: 'none' })
+      return
+    }
+    this.setData({ loading: true })
     let pwd = md5.hash(this.data.pwd)
     wx.$api.login(this.data.username, pwd).then(res => {
       if (res.data.Login.error) {
-        wx.showToast({
-          title: '登录失败',
-          icon: 'none'
-        })
-        this.setData({
-          loading: false
-        })
+        wx.showToast({ title: '登录失败,请重新登录', icon: 'none' })
+        this.setData({ loading: false })
         return
       }
-      wx.showToast({
-        title: '登录成功'
-      })
+      wx.showToast({ title: '登录成功' })
       wx.setStorageSync('jt', res.data.Login.token)
       app.gb.isLogin = true
       app.gb.role = res.data.Login.role
-      wx.redirectTo({
-        url: '../index/index'
-      })
+      wx.redirectTo({ url: '../index/index' })
     }).catch(err => {
       console.error(err)
-      this.setData({
-        loading: false
-      })
+      this.setData({ loading: false })
     })
   },
   selRole() {
@@ -65,7 +56,7 @@ Page({
       success(res) {
         if (res.tapIndex === 0) {
           wx.navigateTo({
-            url: '../webview/webview?url=http://localhost:8080'
+            url: '../webview/webview?url=http://localhost:5000'
           })
         }
       }

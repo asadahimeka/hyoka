@@ -554,12 +554,15 @@ a {
 .mu-tooltip-ripple.when-shown {
   background-color: #616161;
 }
-.router-link-active{
-  color: #7e57c2 !important;
+.mu-appbar {
+  background: #9c27b0;
 }
-.router-link-active .mu-item-left{
-  color: #7e57c2 !important;
+.router-link-active {
+  color: #9c27b0 !important;
 }
-.router-link-active .mu-item-title{
-  color: #7e57c2 !important;
+.router-link-active .mu-item-left {
+  color: #9c27b0 !important;
+}
+.router-link-active .mu-item-title {
+  color: #9c27b0 !important;
 }

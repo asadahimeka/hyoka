@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
+import './assets/css/fuck.css'
 import globalData from './config/globalData'
 
 Vue.use(MuseUI)

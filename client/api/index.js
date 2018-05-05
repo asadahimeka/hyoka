@@ -80,6 +80,28 @@ const api = {
       }`
     })
   },
+  kuso2(kno, sno) {
+    return post({
+      query: `
+      {
+        kuso(kno: "${kno}") {
+          id
+          cno
+          name
+          teacher,
+          teacherno,
+          teacherdprt
+        }
+        studentno(no: "${sno}"){
+          id,
+          name,
+          sno,
+          kurasu,
+          hadEva
+        }
+      }`
+    })
+  },
   getCourses() {
     return post({
       query: `
@@ -111,7 +133,7 @@ const api = {
         }`
     })
   },
-  login(name, pwd, role) {
+  login(name, pwd) {
     return post({
       query: `
       mutation {

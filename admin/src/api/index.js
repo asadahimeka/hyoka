@@ -27,7 +27,7 @@ const api = {
         }`
     })
   },
-  login(name, pwd, role) {
+  login(name, pwd) {
     return post({
       query: `
       mutation {

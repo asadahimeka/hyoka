@@ -19,7 +19,7 @@
       <view class="weui-cell__ft">{{totalmark}}</view>
     </view>
   </view>
-  <block wx:for="{{remarks}}" wx:key="{{item[0].id}}">
+  <block wx:for="{{remarks}}" wx:if="{{item[0].cname}}" wx:key="{{item[0].id}}">
     <view class="weui-cells__title">课程详情</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">

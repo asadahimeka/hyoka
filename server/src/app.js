@@ -14,6 +14,9 @@ import { jwtSecret } from './config'
 import { getUser } from './auth'
 import * as loaders from './loader'
 
+import path from 'path'
+import serve from 'koa-static'
+
 const app = new Koa()
 const router = new Router()
 
@@ -65,5 +68,6 @@ router.all('/graphql', graphqlServer)
 app.use(logger())
 app.use(cors())
 app.use(router.routes()).use(router.allowedMethods())
+app.use(serve(path.join('public')))
 
 export default app

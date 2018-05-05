@@ -66,8 +66,6 @@ Page({
               url: '../login_stu/login_stu'
             })
           }, 500)
-        } else if (res.cancel) {
-
         }
       }
     })

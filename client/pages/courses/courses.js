@@ -6,26 +6,19 @@ Page({
 
   },
   onLoad: function (options) {
-    wx.$api.kuso(app.gb.user.kurasu).then(res => {
+    wx.$api.kuso2(app.gb.user.kurasu, app.gb.user.sno).then(res => {
       let courses = res.data.kuso
+      if (res.data.studentno) {
+        app.gb.user.hadEva = res.data.studentno.hadEva
+      }
       if (courses.length) {
         this.setData({
           courses
         })
       }
     }).then(res => {
-      wx.$api.stuNo(app.gb.user.sno).then(res => {
-        if (res.data.studentno) {
-          app.gb.user.hadEva = res.data.studentno.hadEva
-        }
-      })
-    }).then(res => {
       let courses = this.data.courses.map(e => {
-        if (~app.gb.user.hadEva.indexOf(e.cno)) {
-          e.isEva = true
-        } else {
-          e.isEva = false
-        }
+        e.isEva = ~app.gb.user.hadEva.indexOf(e.cno)
         return e
       })
       this.setData({

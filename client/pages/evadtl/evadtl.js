@@ -39,7 +39,6 @@ Page({
       remark,
       evas
     }
-    console.log('data: ', data)
     wx.$api.addRemark(data).then(res => {
       if (res.data.RemarksAdd) {
         wx.$api.stuNo(app.gb.user.sno).then(res => {
