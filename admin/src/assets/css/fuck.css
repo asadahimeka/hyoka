@@ -22,7 +22,21 @@
   height: 90vh !important;
   padding-top: 20vh;
 }
+.raised-button {
+  margin: 20px 22px 50px;
+}
+.titleBar {
+  width: 100%;
+  height: 100% !important;
+  background-color: rgba(0, 0, 0, 0);
+}
+.ftsz20 {
+  font-size: 17px;
+}
 @media (max-width: 480px) {
+  .raised-button {
+    margin: 20px 10px 50px;
+  }
   .mu-dialog {
     width: 75%;
   }
