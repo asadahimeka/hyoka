@@ -29,31 +29,31 @@ Page({
     })
   },
   onShow() {
-    wx.$api.me().then(res => {
-      if (res.data.me) {
-        this.setData({
-          username: res.data.me.name
-        })
-        if (app.gb.role == 'stu') {
-          wx.$api.stuNo(res.data.me.name).then(res => {
-            app.gb.user = res.data.studentno
-          })
-        } else {
-          wx.$api.teacNo(res.data.me.name).then(res => {
-            app.gb.user = res.data.teacherno
-          })
-        }
-      }
-    })
-    this.setData({
-      isStu: app.gb.role == 'stu',
-      isTeac: app.gb.role == 'teac'
-    })
-    if (!app.gb.isLogin) {
-      wx.redirectTo({
-        url: '../login_stu/login_stu'
-      })
-    }
+    // wx.$api.me().then(res => {
+    //   if (res.data.me) {
+    //     this.setData({
+    //       username: res.data.me.name
+    //     })
+    //     if (app.gb.role == 'stu') {
+    //       wx.$api.stuNo(res.data.me.name).then(res => {
+    //         app.gb.user = res.data.studentno
+    //       })
+    //     } else {
+    //       wx.$api.teacNo(res.data.me.name).then(res => {
+    //         app.gb.user = res.data.teacherno
+    //       })
+    //     }
+    //   }
+    // })
+    // this.setData({
+    //   isStu: app.gb.role == 'stu',
+    //   isTeac: app.gb.role == 'teac'
+    // })
+    // if (!app.gb.isLogin) {
+    //   wx.redirectTo({
+    //     url: '../login_stu/login_stu'
+    //   })
+    // }
   },
   onShareAppMessage() {
     return {

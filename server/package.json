@@ -1,6 +1,6 @@
 {
-  "name": "graphql-dataloader-boilerplate",
-  "description": "GraphQL DataLoader boilerplate",
+  "name": "hyoka-server",
+  "description": "hyoka backend support",
   "version": "0.0.1",
   "dependencies": {
     "@entria/graphql-mongoose-loader": "^1.1.1",
@@ -65,7 +65,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/entria/graphql-dataloader-boilerplate"
+    "url": "https://github.com/asadahimeka/hyoka"
   },
   "lint-staged": {
     "*.js": [

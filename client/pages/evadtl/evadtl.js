@@ -23,7 +23,6 @@ Page({
   },
   submit: function() {
     let evas = this.data.evas.join()
-    console.log('evas: ', evas)
     if (!evas.length || /^,|,,/.test(evas)) {
       wx.showToast({
         title: '请完整填写',
