@@ -8,20 +8,20 @@ const instance = axios.create({
   }
 })
 
-instance.interceptors.request.use((config) => {
+instance.interceptors.request.use(config => {
   config.headers['Authorization'] = localStorage.getItem('jt') || ''
   let data = config.data
-  // data && (config.data['query'] = data['query'].trim().replace(/\s/g, ''))
-  console.log('config.data: ', config.data)
+  // data && (config.data['query'] = data['query'].replace(/\s/g, ''))
+  console.log('config.data: ', data)
   config.data = qs.stringify(data)
   return config
-}, (error) => {
+}, error => {
   return Promise.reject(error)
 })
-instance.interceptors.response.use((response) => {
+instance.interceptors.response.use(response => {
   console.log(response.data)
   return response.data
-}, (error) => {
+}, error => {
   return Promise.reject(error)
 })
 
