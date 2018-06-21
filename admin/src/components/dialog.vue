@@ -14,26 +14,25 @@ export const showDialog = (opt) => {
     ...opt
   })
 }
+export const closeDialog = () => {
+  store.commit('DIALOG', {
+    open: false
+  })
+}
 export default {
   name: 'Dialog',
   props: ['options'],
   methods: {
     _close() {
-      store.commit('DIALOG', {
-        open: false
-      })
+      closeDialog()
       this.options.closeFn && this.options.closeFn(this)
     },
     _cancel() {
-      store.commit('DIALOG', {
-        open: false
-      })
+      closeDialog()
       this.options.cancelFn && this.options.cancelFn(this)
     },
     _submit() {
-      store.commit('DIALOG', {
-        open: false
-      })
+      closeDialog()
       this.options.submitFn && this.options.submitFn(this)
     }
   }
