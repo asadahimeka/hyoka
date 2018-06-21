@@ -22,13 +22,13 @@ export default {
       store.commit('DIALOG', {
         open: false
       })
-      this.options.cancelFn && this.options.cancelFn(this)
+      this.options.closeFn && this.options.closeFn(this)
     },
     _cancel() {
       store.commit('DIALOG', {
         open: false
       })
-      this.options.closeFn && this.options.closeFn(this)
+      this.options.cancelFn && this.options.cancelFn(this)
     },
     _submit() {
       store.commit('DIALOG', {
